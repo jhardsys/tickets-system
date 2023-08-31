@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Client\ClientProfileController;
+use App\Http\Controllers\Client\ClientTicketController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,4 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', LoginController::class);
+Route::resource('/tickets', ClientTicketController::class);
+
+Route::resource('/perfil', ClientProfileController::class);
