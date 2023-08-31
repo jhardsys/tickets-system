@@ -12,7 +12,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        //
+        // TODO: INICIAR SESION VISTTA
     }
 
     /**
@@ -20,7 +20,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //
+        // TODO: REGISTRAR VISTA
     }
 
     /**
@@ -28,7 +28,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // TODO: REGISTRAR FUNCION
     }
 
     /**
@@ -60,6 +60,6 @@ class LoginController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        // 
     }
 }
