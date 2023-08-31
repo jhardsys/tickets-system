@@ -13,6 +13,7 @@ class LoginController extends Controller
     public function index()
     {
         // TODO: INICIAR SESION VISTTA
+        return view('login.login');
     }
 
     /**
