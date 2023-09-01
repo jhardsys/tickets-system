@@ -1,19 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Login;
+namespace App\Http\Controllers\Register;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class LoginController extends Controller
+class RegisterController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // TODO: INICIAR SESION VISTTA
-        return view('login.login');
+        // TODO: REGISTRAR VISTA
     }
 
     /**
@@ -21,7 +20,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        
+        //
     }
 
     /**
@@ -29,7 +28,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        // TODO: REGISTRAR FUNCION
+        // FUNCION REGISTRAR
     }
 
     /**

@@ -15,3 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/', LoginController::class);
+
+Route::resource('/register', RegisterController::class);

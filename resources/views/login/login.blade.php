@@ -19,8 +19,7 @@
                 </label>
             </div>
 
-            <input class="login__button" type="submit" value="Iniciar sesion"></input>
-
+            <input class="login__button" type="submit" value="Iniciar sesion" />
             <a class="login__olvido" href="#">¿Olvidó su contraseña?</a>
 
         </div>
