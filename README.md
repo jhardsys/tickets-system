@@ -24,3 +24,10 @@ composer dump-autoload
 php artisan key:generate
 php artisan serve
 ```
+
+## Rutas del proyecto ticket
+
+```
+/app/client/tickets
+/app/admin/tickets
+```

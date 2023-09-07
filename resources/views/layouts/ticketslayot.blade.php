@@ -14,7 +14,6 @@
     <title>@yield('title')</title>
 </head>
 <body>
-    @vite([])
     <header class="header">
         <nav class="nav">
             {{-- <i class="uil uil-bars navOpenBtn"></i> --}}
