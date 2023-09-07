@@ -12,7 +12,7 @@ class ClientTicketController extends Controller
      */
     public function index()
     {
-        //
+        return view('client.tickets.index');
     }
 
     /**
