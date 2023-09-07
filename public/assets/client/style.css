@@ -12,7 +12,6 @@
     --light-background: rgba(245, 247, 249, 1);
 }
 
-
 * {
     margin: 0;
     padding: 0;
@@ -20,35 +19,34 @@
     font-family: "Poppins", sans-serif;
 }
 body {
-    background: #F5F7F9;
+    background: #f5f7f9;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 .main {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 }
 
 .footer {
-  margin-top: auto;
-  width: 100%;
-  margin-top: auto;
-  display: flex;
-  height: 46px;
-  padding: 8px;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-  background: var(--primary-color, #335068);
-  color: var(--white);
+    margin-top: auto;
+    width: 100%;
+    margin-top: auto;
+    display: flex;
+    height: 46px;
+    padding: 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+    background: var(--primary-color, #335068);
+    color: var(--white);
 }
 
 .nav {
@@ -57,7 +55,7 @@ body {
     left: 0; */
     width: 100%;
     padding: 15px 200px;
-    background: #F5F7F9;
+    background: #f5f7f9;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     color: var(--primary-color);
 }
@@ -198,43 +196,206 @@ a {
 }
 
 /* Ticket */
-.nav__link{
-  background-color: var(--primary-color);
-  color: var(--white);
-  padding: 16px 18px;
+.nav__link {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 16px 18px;
 }
 
 .nav__link-enviar-ticket {
-  font-weight: 500;
-  border: 2px solid var(--primary-color);
-  padding: 8px 18px;
+    font-weight: 500;
+    border: 2px solid var(--primary-color);
+    padding: 8px 18px;
 }
 
 .perfil {
-  background-color: var(--light-red);
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  color: var(--gray);
-  border-radius: 5px;
+    background-color: var(--light-red);
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    color: var(--gray);
+    border-radius: 5px;
 }
 
 /* HEAD */
 .head {
-  height: 120px;
-  width: 100%;
-  background-color: var(--blue);
-  color: var(--white);
-  font-size: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
+    height: 120px;
+    width: 100%;
+    background-color: var(--blue);
+    color: var(--white);
+    font-size: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
 }
 
 /* TODO: STYLOS TICKET */
+
+.ticket__container {
+    display: flex;
+    width: 800px;
+    padding: 30px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    border-radius: 10px;
+    background: var(--white, #fff);
+}
 .ticket {
-  border: 1px solid black;
+    width: 100%;
+    background-color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
+.ticket__body {
+    display: flex;
+    align-items: flex-start;
+}
+
+.ticket__logo {
+    display: flex;
+    width: 30px;
+    padding: 6px 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.ticket__texts {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.ticket__titulo {
+    color: var(--secondary-color, #2c5cc5);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.ticket__fecha {
+    color: var(--blue, #183247);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.ticket__estado {
+    display: flex;
+    padding: 4px 8px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: var(--deep-red);
+    font-size: 12px;
+    border-radius: 4px;
+    border: 1px solid var(--deep-red, #f65050);
+    background: var(--light-red, #ffdee0);
+}
+
+/* ------------------- 
+login
+------------------- */
+
+.login {
+    display: flex;
+    min-width: 475px;
+    padding: 24px 32px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 22px;
+
+    border-radius: 20px;
+    background: var(--white, #fff);
+}
+
+.login__titulo {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+.login__body {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    width: 100%;
+}
+
+.login__campo {
+    flex: 1;
+}
+.login__label {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    color: var(--primary-color, #335068);
+    font-size: 16px;
+    font-weight: 700;
+}
+.login__span {
+    flex: 1;
+}
+.login__input {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 5px;
+    border-color: var(--gray);
+}
+
+.login__input:focus {
+    border-color: #007bff; /* Cambia el color del borde al enfocar el input */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Agrega una sombra al enfocar el input */
+    outline: none; /* Elimina el contorno predeterminado en algunos navegadores */
+}
+
+.login__button {
+    display: flex;
+    padding: 12px 0px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+
+    border-radius: 5px;
+    background: var(--primary-color, #335068);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.login__button:hover {
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.2);
+}
+.login__olvido {
+    color: var(--primary-color, #335068);
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+    font-weight: 700;
+}
+
+.form__descripcion {
+    display: flex;
+    height: 150px;
+    padding: 12px 15px;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    border-radius: 5px;
+    border: 1px solid var(--gray, #929292);
+}

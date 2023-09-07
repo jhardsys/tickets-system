@@ -22,7 +22,7 @@
     />
     <!-- Style.css -->
     <link
-      href="{{ asset('/assets/css/admin/style.css') }}"
+      href="{{ asset('assets/admin/style.css') }}"
       rel="stylesheet"
     />
     <!-- Box icons -->

@@ -20,7 +20,7 @@ class ClientTicketController extends Controller
      */
     public function create()
     {
-        //
+        return view('client.tickets.create');
     }
 
     /**
