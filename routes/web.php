@@ -15,6 +15,6 @@ use App\Http\Controllers\Register\RegisterController;
 |
 */
 
-Route::resource('/', LoginController::class);
+Route::resource('/', LoginController::class)->names('login');
 
 Route::resource('/register', RegisterController::class);
