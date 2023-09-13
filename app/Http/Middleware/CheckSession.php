@@ -16,7 +16,7 @@ class CheckSession
     public function handle(Request $request, Closure $next): Response
     {
         if (!$request->session()->has('role')) {
-            return redirect()->route('login');
+            return redirect()->route('login.index');
         }
         return $next($request);
     }
