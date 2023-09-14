@@ -1,27 +1,45 @@
 @extends('layouts.ticketslayot')
-@section('titulo-seccion', 'Enviar un ticket')
+@section('titulo-seccion', 'Tickets')
 @section('contenido')
-    <form class="login" method="POST" action="{{ url('app/client/tickets') }}">
-        @csrf
-        {{-- @method('PUT') --}}
-        <div class="login__body">
-
-            <div class="login__campo">
-                <label class="login__label" for="correo">
-                    <span class="login__span">Asunto:</span>
-                    <input class="login__input" id="username" type="text" name="asunto" />
-                </label>
-            </div>
-
-            <div class="login__campo">
-                <label class="login__label" for="password">
-                    <span class="login__span">Descripcion:</span>
-                    <textarea class="form__descripcion" name="descripcion"></textarea>
-                </label>
-            </div>
-
-            <input class="login__button" type="submit" value="Enviar" />
-
+    <div class="ticket__container">
+        {{-- <div class="ticket">
+      <div class="ticket__body">
+        <div class="ticket__logo"><img src="{{ asset('assets/client/img/logo-ticket.png') }}" alt=""></div>
+        <div class="ticket__texts">
+            <p class="ticket__titulo">Quiero restablecer mi contraseña de SENATI #2</p>
+            <p class="ticket__fecha">Creado el Mie, 30 Ago a 4: 11 A.M a traves de Portal</p>
         </div>
-    </form>
+      </div>
+      <div class="ticket__estado-container">
+        <p class="ticket__estado">Abierto</p>
+      </div>
+    </div> --}}
+        @foreach ($tickets as $ticket)
+            <div class="ticket">
+                <div class="ticket__body">
+                    <div class="ticket__logo"><img src="{{ asset('assets/client/img/logo-ticket.png') }}" alt=""></div>
+                    <div class="ticket__texts">
+                        <a href="{{ url('app/client/tickets/' . $ticket->id) }}"
+                            class="ticket__titulo">{{ $ticket->subject }}</a>
+                        <p class="ticket__fecha">Creado el {{ $ticket->created_at }} a traves de Portal</p>
+                    </div>
+                </div>
+                <div class="ticket__estado-container">
+                    <p class="ticket__estado">{{ $ticket->status }}</p>
+                </div>
+            </div>
+        @endforeach
+        {{-- <div class="ticket">
+      <div class="ticket__body">
+        <div class="ticket__logo"><img src="{{ asset('assets/client/img/logo-ticket.png') }}" alt=""></div>
+        <div class="ticket__texts">
+            <p class="ticket__titulo">Quiero restablecer mi contraseña de SENATI #2</p>
+            <p class="ticket__fecha">Creado el Mie, 30 Ago a 4: 11 A.M a traves de Portal</p>
+        </div>
+      </div>
+      <div class="ticket__estado-container">
+        <p class="ticket__estado">Abierto</p>
+      </div>
+    </div> --}}
+    </div>
 @endsection
