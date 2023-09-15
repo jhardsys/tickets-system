@@ -399,3 +399,89 @@ login
     border-radius: 5px;
     border: 1px solid var(--gray, #929292);
 }
+
+/****CLIENT PROFILE ****/
+.profile__layout {
+    width: 100%;
+    padding: 15px 200px;
+    background: var(--blue);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: var(--white);
+    text-align: center;
+    font-size: 30px;
+}
+
+.profile__page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding-top: 3%;
+}
+
+.profile__container {
+    margin: auto;
+    width: 50%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.profile__container label {
+    font-weight: 500;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 25px;
+}
+
+.profile__container input {
+    width: calc(100% - 10px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 20px;
+    box-sizing: border-box;
+}
+
+.profile__container button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 20px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.profile__container button:hover {
+    background-color: #0056b3;
+}
+
+.profile__layout__nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile_grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.perfil.expanded a {
+    display: block;
+}
+
+.perfil__a {
+    padding: 2px;
+}
+
+.profile__btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

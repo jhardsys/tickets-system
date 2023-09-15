@@ -11,7 +11,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>@yield('title')</title>
+  
+  <title>@yield('title')</title>
 </head>
 <body>
     <header class="header">
@@ -29,9 +30,10 @@
               <li><a href="{{ url('app/client/tickets/create') }}" class="nav__link-enviar-ticket">Enviar un ticket</a></li>
             </ul>
            
-           <div class="perfil">
-              <p>P</p>
-           </div>
+           <div class="perfil" id="perfilContainer">
+              <a class="perfil__a" href="{{ url('app/client/perfil') }}"><p>P</p></a>
+          </div>
+
           </nav>
     </header>
 
