@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 class ClientTicketController extends Controller
@@ -12,7 +13,9 @@ class ClientTicketController extends Controller
      */
     public function index()
     {
-        return view('client.tickets.index');
+        $tickets = Ticket::select('*')->where('client_id', session('user_session')->id)->get();
+
+        return view('client.tickets.index', compact('tickets'));
     }
 
     /**
@@ -28,7 +31,18 @@ class ClientTicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd(session('user_session'));
+        $ticket = new Ticket;
+        $ticket->subject = $request->asunto;
+        $ticket->description = $request->descripcion;
+        $ticket->priority = 'alta';
+        $ticket->status = 'en proceso';
+        $ticket->client_id = session('user_session')->id;
+        $ticket->agent_id = 1;
+        $ticket->save();
+        // dd($request->all());
+        // dd($ticket);
+        return redirect('/app/client/tickets');
     }
 
     /**
@@ -36,7 +50,8 @@ class ClientTicketController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $tickets = Ticket::findOrFail($id);
+        dd($tickets);
     }
 
     /**

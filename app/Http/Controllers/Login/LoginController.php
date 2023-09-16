@@ -75,7 +75,7 @@ class LoginController extends Controller
         }
 
         // REDIRECCION SEGUN ROL
-        session(['user' => $user, 'role' => $request->role]);
+        session(['user_session' => $user, 'role' => $request->role]);
 
         if ($request->role == $roles[1]) {
             return redirect()->route('admin.tickets.index');
