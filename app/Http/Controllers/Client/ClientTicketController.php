@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -34,15 +35,20 @@ class ClientTicketController extends Controller
         // dd(session('user_session'));
         $ticket = new Ticket;
         $ticket->subject = $request->asunto;
-        $ticket->description = $request->descripcion;
         $ticket->priority = 'alta';
         $ticket->status = 'en proceso';
         $ticket->client_id = session('user_session')->id;
         $ticket->agent_id = 1;
         $ticket->save();
-        // dd($request->all());
-        // dd($ticket);
+        $comment = new Comment;
+        $comment->ticket_id = $ticket->id;
+        $comment->body = $request->descripcion;
+        $comment->commentable_type = 'App\Models\Client';
+        //Consultar commentable_id
+        $comment->commentable_id = '1';
+        $comment->save();
         return redirect('/app/client/tickets');
+
     }
 
     /**
@@ -50,8 +56,16 @@ class ClientTicketController extends Controller
      */
     public function show(string $id)
     {
-        $tickets = Ticket::findOrFail($id);
-        dd($tickets);
+        $ticket = Ticket::findOrFail($id);
+        $comments = Comment::select('*')->where('ticket_id', $id)->get();
+        $name=session('user_session')->first_name;
+        $apellido_pa=session('user_session')->first_surname;
+        $apellido_ma=session('user_session')->second_surname;
+
+        return view('client.tickets.show', compact('ticket', 'comments', 'name', 'apellido_pa','apellido_ma'));
+
+
+
     }
 
     /**

@@ -485,3 +485,53 @@ login
     flex-direction: row;
     justify-content: space-between;
 }
+/* ------------------- 
+Create - Tickets
+------------------- */
+.loginbody{
+    display: flex;
+    flex-direction: column;
+}
+.loginbody .logincampo{
+    margin-bottom: 10px;
+}
+
+
+
+/* ------------------- 
+Detalles - Tickets
+------------------- */
+.search_ticket input{
+    border-radius: 10px; 
+    padding: 10px; 
+    border: 1px solid #ccc;
+    width: 300px;
+}
+.ticket__container .container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    
+}
+.ticket__container h1{
+    position: center;
+    align-items: center;
+    justify-content: center;
+    
+}
+.ticket__container .container .box{
+    border-radius: 10px; 
+    padding: 5px 10px; 
+    width: 730px;
+    background-color: #f2f2f2; 
+    color: #333;
+}
+.ticket__container .container p{
+    border-radius: 10px; 
+    padding: 5px 10px;
+    height: 150px; 
+    width: 730px;
+    background-color: #f2f2f2; 
+    color: #333;
+}

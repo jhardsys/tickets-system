@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
             $table->string('subject');
-            $table->string('description', 255);
             $table->enum('priority', ['baja', 'media', 'alta'])->default('baja');
             $table->enum('status', ['derivación al area especializada', 'en proceso', 'resuelto'])
                 ->default('derivación al area especializada');
