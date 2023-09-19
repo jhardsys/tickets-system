@@ -19,4 +19,13 @@ class Client extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+     protected $fillable = [
+        'first_name',
+        'first_surname',
+        'second_surname',
+        'phone',
+        'email',
+        'password'
+    ];
 }

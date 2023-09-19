@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Client;
+
+
 
 class ClientProfileController extends Controller
 {
@@ -13,8 +15,16 @@ class ClientProfileController extends Controller
      */
     public function index(Request $request)
     {
-      $usuarioInfo = $request->session();
-      return view('client.profile.index', ['usuario' => $usuarioInfo]);
+      $data = [
+        'first_name' => $request->session()->get('user')->first_name,
+        'first_surname' => $request->session()->get('user')->first_surname,
+        'second_surname' => $request->session()->get('user')->second_surname,
+        'phone' => $request->session()->get('user')->phone,
+        'email' => $request->session()->get('user')->email,
+        'id' => $request->session()->get('user')->id,
+        'password' => $request->session()->get('user')->password,
+      ];
+      return view('client.profile.index', ['data' => $data]);
     }
 
     /**
@@ -44,17 +54,28 @@ class ClientProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id, Request $request)
     {
-        //
+      $data = [
+        'first_name' => $request->session()->get('user')->first_name,
+        'first_surname' => $request->session()->get('user')->first_surname,
+        'second_surname' => $request->session()->get('user')->second_surname,
+        'phone' => $request->session()->get('user')->phone,
+        'email' => $request->session()->get('user')->email,
+        'id' => $request->session()->get('user')->id,
+      ];
+      return view('client.profile.edit', ['data' => $data]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $perfil)
     {
-        //
+        $data = $request->all();
+        $client = Client::findOrFail($perfil);
+        $client->update($data);
+        return redirect()->route('client.perfil.index')->with('success', 'Perfil actualizado con éxito');
     }
 
     /**

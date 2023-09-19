@@ -31,9 +31,8 @@
             </ul>
            
            <div class="perfil" id="perfilContainer">
-              <a class="perfil__a" href="{{ url('app/client/perfil') }}"><p>P</p></a>
+              <a class="perfil__a" href="{{ route('client.perfil.index') }}"><p>P</p></a>
           </div>
-
           </nav>
     </header>
 
