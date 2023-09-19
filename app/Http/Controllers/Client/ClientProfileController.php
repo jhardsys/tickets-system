@@ -16,13 +16,13 @@ class ClientProfileController extends Controller
     public function index(Request $request)
     {
       $data = [
-        'first_name' => $request->session()->get('user')->first_name,
-        'first_surname' => $request->session()->get('user')->first_surname,
-        'second_surname' => $request->session()->get('user')->second_surname,
-        'phone' => $request->session()->get('user')->phone,
-        'email' => $request->session()->get('user')->email,
-        'id' => $request->session()->get('user')->id,
-        'password' => $request->session()->get('user')->password,
+        'first_name' => $request->session()->get('user_session')->first_name,
+        'first_surname' => $request->session()->get('user_session')->first_surname,
+        'second_surname' => $request->session()->get('user_session')->second_surname,
+        'phone' => $request->session()->get('user_session')->phone,
+        'email' => $request->session()->get('user_session')->email,
+        'id' => $request->session()->get('user_session')->id,
+        // 'password' => $request->session()->get('user')->password,
       ];
       return view('client.profile.index', ['data' => $data]);
     }
@@ -57,12 +57,12 @@ class ClientProfileController extends Controller
     public function edit(string $id, Request $request)
     {
       $data = [
-        'first_name' => $request->session()->get('user')->first_name,
-        'first_surname' => $request->session()->get('user')->first_surname,
-        'second_surname' => $request->session()->get('user')->second_surname,
-        'phone' => $request->session()->get('user')->phone,
-        'email' => $request->session()->get('user')->email,
-        'id' => $request->session()->get('user')->id,
+        'first_name' => $request->session()->get('user_session')->first_name,
+        'first_surname' => $request->session()->get('user_session')->first_surname,
+        'second_surname' => $request->session()->get('user_session')->second_surname,
+        'phone' => $request->session()->get('user_session')->phone,
+        'email' => $request->session()->get('user_session')->email,
+        'id' => $request->session()->get('user_session')->id,
       ];
       return view('client.profile.edit', ['data' => $data]);
     }
