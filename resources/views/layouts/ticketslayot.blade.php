@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
+
   <title>@yield('title')</title>
 </head>
 <body>
@@ -24,12 +24,16 @@
             <a href="{{ url('app/client/tickets') }}" class="logo">SYSTICKETS</a>
             <ul class="nav-links">
               <i class="uil uil-times navCloseBtn"></i>
-             
+
               <li><a href="{{ url('app/client/tickets') }}">Inicio</a></li>
               <li><a href="{{ url('app/client/tickets') }}" class="nav__link">Tickets</a></li>
               <li><a href="{{ url('app/client/tickets/create') }}" class="nav__link-enviar-ticket">Enviar un ticket</a></li>
+              <form method="POST" action="{{ route('logout.store') }}">
+                @csrf
+                <button type="submit" class="nav__link">Cerrar sesión</button>
+              </form>
             </ul>
-           
+
            <div class="perfil" id="perfilContainer">
               <a class="perfil__a" href="{{ route('client.perfil.index') }}"><p>P</p></a>
           </div>
@@ -42,10 +46,10 @@
              @yield('titulo-seccion')
             </div>
         </div>
-        
+
         @yield('contenido')
     </main>
-    
+
     <footer class="footer">
       <p class="footer__name">Software de Help Desk de Freshdesk</p>
       <b class="footer__privacy">Politica de privacidad</b>
