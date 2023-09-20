@@ -75,6 +75,7 @@ class ClientProfileController extends Controller
         $data = $request->all();
         $client = Client::findOrFail($perfil);
         $client->update($data);
+        $request->session()->put('user_session', $client);
         return redirect()->route('client.perfil.index')->with('success', 'Perfil actualizado con éxito');
     }
 
