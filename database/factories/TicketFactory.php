@@ -20,6 +20,7 @@ class TicketFactory extends Factory
     {
         return [
             "subject" => $this->faker->sentence(),
+            "description" => $this->faker->sentence(),
             "priority" => $this->faker->randomElement(["baja", "media", "alta"]),
             "status" => $this->faker->randomElement(["derivación al area especializada", "en proceso", "resuelto"]),
             "client_id" => Client::factory(),
