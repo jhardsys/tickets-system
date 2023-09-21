@@ -25,7 +25,10 @@ class Client extends Model
         'first_surname',
         'second_surname',
         'phone',
-        'email',
-        'password'
     ];
+
+    public function user()
+    {
+        return $this->morphOne(User::class, 'userable');
+    }
 }

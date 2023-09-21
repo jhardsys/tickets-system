@@ -13,7 +13,8 @@ class ClientTicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::select('*')->where('client_id', session('user_session')->id)->get();
+        // dd(session('user_session')["id"]);
+        $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->get();
 
         return view('client.tickets.index', compact('tickets'));
     }
@@ -37,7 +38,7 @@ class ClientTicketController extends Controller
         $ticket->description = $request->descripcion;
         $ticket->priority = 'alta';
         $ticket->status = 'en proceso';
-        $ticket->client_id = session('user_session')->id;
+        $ticket->client_id = session('user_session')["id"];
         $ticket->agent_id = 1;
         $ticket->save();
         // dd($request->all());

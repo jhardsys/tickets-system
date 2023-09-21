@@ -15,7 +15,7 @@ class CheckClientRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->session()->get('role') !== 'Cliente') {
+        if ($request->session()->get('role') !== 'App\Models\Client') {
             return redirect()->back();
         }
         return $next($request);

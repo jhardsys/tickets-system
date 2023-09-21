@@ -15,13 +15,14 @@ class ClientProfileController extends Controller
      */
     public function index(Request $request)
     {
+
       $data = [
-        'first_name' => $request->session()->get('user_session')->first_name,
-        'first_surname' => $request->session()->get('user_session')->first_surname,
-        'second_surname' => $request->session()->get('user_session')->second_surname,
-        'phone' => $request->session()->get('user_session')->phone,
-        'email' => $request->session()->get('user_session')->email,
-        'id' => $request->session()->get('user_session')->id,
+        'first_name' => $request->session()->get('user_session')['first_name'],
+        'first_surname' => $request->session()->get('user_session')['first_surname'],
+        'second_surname' => $request->session()->get('user_session')['second_surname'],
+        'phone' => $request->session()->get('user_session')['phone'],
+        'email' => $request->session()->get('user_session')['email'],
+        'id' => $request->session()->get('user_session')['id'],
         // 'password' => $request->session()->get('user')->password,
       ];
       return view('client.profile.index', ['data' => $data]);
@@ -57,12 +58,12 @@ class ClientProfileController extends Controller
     public function edit(string $id, Request $request)
     {
       $data = [
-        'first_name' => $request->session()->get('user_session')->first_name,
-        'first_surname' => $request->session()->get('user_session')->first_surname,
-        'second_surname' => $request->session()->get('user_session')->second_surname,
-        'phone' => $request->session()->get('user_session')->phone,
-        'email' => $request->session()->get('user_session')->email,
-        'id' => $request->session()->get('user_session')->id,
+        'first_name' => $request->session()->get('user_session')['first_name'],
+        'first_surname' => $request->session()->get('user_session')['first_surname'],
+        'second_surname' => $request->session()->get('user_session')['second_surname'],
+        'phone' => $request->session()->get('user_session')['phone'],
+        'email' => $request->session()->get('user_session')['email'],
+        'id' => $request->session()->get('user_session')['id'],
       ];
       return view('client.profile.edit', ['data' => $data]);
     }
@@ -72,10 +73,24 @@ class ClientProfileController extends Controller
      */
     public function update(Request $request, string $perfil)
     {
-        $data = $request->all();
+        // dd($request->all());
+        $client_data = [
+          'first_name' => $request->first_name,
+          'first_surname' => $request->first_surname,
+          'second_surname' => $request->second_surname,
+          'phone' => $request->phone,
+        ];
         $client = Client::findOrFail($perfil);
-        $client->update($data);
-        $request->session()->put('user_session', $client);
+        $client->update($client_data);
+        $client->user()->update(['email' => $request->email]);
+        $request->session()->put('user_session', [
+            'id' => $client->id,
+            'first_name' => $client->first_name,
+            'first_surname' => $client->first_surname,
+            'second_surname' => $client->second_surname,
+            'phone' => $client->phone,
+            'email' => $client->user->email,
+        ]);
         return redirect()->route('client.perfil.index')->with('success', 'Perfil actualizado con éxito');
     }
 

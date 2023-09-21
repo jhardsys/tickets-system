@@ -15,7 +15,7 @@ class CheckAgentRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->session()->get('role') !== 'Agente') {
+        if ($request->session()->get('role') !== 'App\Models\Agent') {
             return redirect()->back();
         }
         return $next($request);

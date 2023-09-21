@@ -19,4 +19,9 @@ class Agent extends Model
     {
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function user()
+    {
+        return $this->morphOne(User::class, 'userable');
+    }
 }

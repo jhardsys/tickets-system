@@ -9,6 +9,7 @@ use App\Models\Comment;
 use App\Models\Ticket;
 use App\Models\Agent;
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -27,29 +28,54 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         Ticket::factory(10)->has(Comment::factory()->count(3))->create();
-        Administrator::factory()->create([
-            'first_name' => 'Admin',
-            'first_surname' => 'Test',
-            'second_surname' => 'Test',
-            'email' => 'admin@test.com',
-            'password' => Hash::make('admin'),
-            'phone' => '1234567890',
-        ]);
-        Agent::factory()->create([
-            'first_name' => 'Agent',
-            'first_surname' => 'Test',
-            'second_surname' => 'Test',
-            'email' => 'agent@test.com',
-            'password' => Hash::make('agent'),
-            'phone' => '1234567890',
-        ]);
-        Client::factory()->create([
-            'first_name' => 'Client',
-            'first_surname' => 'Test',
-            'second_surname' => 'Test',
-            'email' => 'client@test.com',
-            'password' => Hash::make('client'),
-            'phone' => '1234567890',
-        ]);
+
+        User::factory()
+            ->recycle(Administrator::factory()->create())
+            ->create([
+                'email' => 'admin@test.com',
+                'password' => Hash::make('admin'),
+                'userable_type' => 'App\Models\Administrator',
+                'userable_id' => '1'
+            ]);
+
+        User::factory()
+            ->recycle(Agent::factory()->create())
+            ->create([
+                'email' => 'agent@test.com',
+                'password' => Hash::make('agent'),
+                'userable_type' => 'App\Models\Agent',
+                'userable_id' => '1'
+            ]);
+
+        User::factory()
+            ->recycle(Client::factory()->create())
+            ->create([
+                'email' => 'client@test.com',
+                'password' => Hash::make('client'),
+                'userable_type' => 'App\Models\Client',
+                'userable_id' => '1'
+            ]);
+
+        // Administrator::factory()->create([
+        //     'first_name' => 'Admin',
+        //     'first_surname' => 'Test',
+        //     'second_surname' => 'Test',
+
+        //     'phone' => '1234567890',
+        // ]);
+        // Agent::factory()->create([
+        //     'first_name' => 'Agent',
+        //     'first_surname' => 'Test',
+        //     'second_surname' => 'Test',
+
+        //     'phone' => '1234567890',
+        // ]);
+        // Client::factory()->create([
+        //     'first_name' => 'Client',
+        //     'first_surname' => 'Test',
+        //     'second_surname' => 'Test',
+
+        //     'phone' => '1234567890',
+        // ]);
     }
 }

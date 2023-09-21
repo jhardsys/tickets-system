@@ -15,7 +15,7 @@ class CheckAdminRole
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->session()->get('role') !== 'Administrador') {
+        if ($request->session()->get('role') !== 'App\Models\Administrator') {
             return redirect()->back();
         }
         return $next($request);
