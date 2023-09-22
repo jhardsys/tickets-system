@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminTicketController extends Controller
 {
@@ -12,7 +13,10 @@ class AdminTicketController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.index');
+        $tickets = Ticket::all();
+        return view('admin.index',[
+            'tickets' => $tickets
+        ]);
     }
 
     /**
@@ -34,9 +38,11 @@ class AdminTicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Ticket $ticket)
     {
-        //
+        return view('admin.tickets.show',[
+            'ticket' => $ticket
+        ]);
     }
 
     /**

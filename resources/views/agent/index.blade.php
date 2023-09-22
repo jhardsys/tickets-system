@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.agentelayout')
 @section('content')
 <div class="overflow-auto rounded-lg shadow" id="contenedor-tabla">
     <table class="w-full">
@@ -16,14 +16,16 @@
                 <tr class="odd:bg-white even:bg-slate-100">
                     <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">{{ $ticket->client->first_name }} {{ $ticket->client->first_surname }}</td>
                     <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
-                        <a href="{{ route('admin.tickets.show',$ticket) }}" class="hover:text-blue-500 hover:underline transition ease-in-out">{{ $ticket->subject}} </a>
+                        <a href="{{ route('agent.tickets.show',$ticket) }}" class="hover:text-blue-500 hover:underline transition ease-in-out">{{ $ticket->subject}} </a>
                     </td>
                     <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">{{ $ticket->agent->first_name}} </td>
                     <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">{{ $ticket->priority}} </td>
                     <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">{{ $ticket->status}} </td>
                 </tr>
                 @empty
-                    <tr>No hay tickets</tr>
+                    <tr>
+                        <td>No hay tickets</td>
+                    </tr>
                 @endforelse
 
         </tbody>

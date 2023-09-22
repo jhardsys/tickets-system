@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AgentTicketController extends Controller
 {
@@ -12,7 +13,10 @@ class AgentTicketController extends Controller
      */
     public function index()
     {
-        //
+        $tickets = Ticket::all();
+        return view('agent.index',[
+            'tickets' => $tickets
+        ]);
     }
 
     /**
@@ -34,9 +38,11 @@ class AgentTicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Ticket $ticket)
     {
-        //
+        return view('agent.tickets.show',[
+            'ticket' => $ticket
+        ]);
     }
 
     /**
