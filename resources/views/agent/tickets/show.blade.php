@@ -1,4 +1,4 @@
-@extends('layouts.adminlayout')
+@extends('layouts.agentelayout')
 @section('content')
     <div class="flex p-4 flex-col gap-2">
         <article class="bg-white p-5 flex flex-col gap-4">

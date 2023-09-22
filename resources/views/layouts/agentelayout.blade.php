@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8" />
@@ -20,7 +20,7 @@
 
 <body>
     <div class="sidebar">
-        <a class="logo-details" href="{{ route('admin.tickets.index') }}">
+        <a class="logo-details" href="{{ route('agent.tickets.index') }}">
             <i class="bx bxl-c-plus-plus"></i>
             <span class="logo_name">SYSTICKETS</span>
         </a>
@@ -30,7 +30,7 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="{{ route('admin.tickets.index') }}">
+                    <a href="{{ route('agent.tickets.index') }}">
                         <i class="bx bx-collection"></i>
                         <span class="link_name">Ticket</span>
                     </a>
@@ -139,7 +139,7 @@
     <header class="home-section">
         <div class="home-content bg-white">
             <i class='bx bx-menu'></i>
-            <span class="text">Sistema de tickets</span>
+            <span class="text">Agente</span>
         </div>
     </header>
     <main class="main">
