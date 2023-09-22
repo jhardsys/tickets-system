@@ -12,6 +12,9 @@
     <link href="{{ asset('assets/admin/style.css') }}" rel="stylesheet" />
     <!-- Box icons -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    {{-- Tailwind --}}
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <title>Box icons</title>
 </head>
 
@@ -134,7 +137,7 @@
         </ul>
     </div>
     <header class="home-section">
-        <div class="home-content">
+        <div class="home-content bg-white">
             <i class='bx bx-menu'></i>
             <span class="text">Sistema de tickets</span>
         </div>
@@ -142,6 +145,7 @@
     <main class="main">
         @yield('content')
     </main>
+    @stack('script')
 </body>
 
 <script>
