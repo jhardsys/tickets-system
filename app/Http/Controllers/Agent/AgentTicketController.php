@@ -32,7 +32,7 @@ class AgentTicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -58,7 +58,16 @@ class AgentTicketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $ticket = Ticket::find($id);
+
+        //Obtner la prioridad desde js
+        $nuevaPrioridad = $request->input('nuevaPrioridad') ?? $ticket->priority;
+        $nuevoStatus = $request->input('nuevoStatus') ?? $ticket->status;
+
+        $ticket->priority = $nuevaPrioridad;
+        $ticket->status = $nuevoStatus;
+        $ticket->save();
+
     }
 
     /**
