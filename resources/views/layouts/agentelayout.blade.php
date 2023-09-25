@@ -112,6 +112,15 @@
                 </ul>
             </li>
             <li>
+                <a href="{{route('agent.perfil.index')}}">
+                    <i class='bx bx-user'></i>
+                    <span class="link_name">Profile</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a href="{{route('agent.perfil.index')}}" class="link_name">Profile</a></li>
+                </ul>
+            </li>
+            <li>
                 <a href="#">
                     <i class='bx bx-cog'></i>
                     <span class="link_name">Setting</span>
