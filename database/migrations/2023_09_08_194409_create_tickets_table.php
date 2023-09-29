@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('status', ['derivación al area especializada', 'en proceso', 'resuelto'])
                 ->default('derivación al area especializada');
             $table->foreignId('client_id')->constrained();
-            $table->foreignId('agent_id')->constrained();
+            $table->foreignId('agent_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

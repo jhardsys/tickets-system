@@ -32,18 +32,20 @@ class ClientTicketController extends Controller
      */
     public function store(Request $request)
     {
+        // validacion de datos enviados por el formulario
+        $request->validate([
+            'asunto' => 'required',
+            'descripcion' => 'required',
+        ]);
         // dd(session('user_session'));
         $ticket = new Ticket;
         $ticket->subject = $request->asunto;
         $ticket->description = $request->descripcion;
-        $ticket->priority = 'alta';
-        $ticket->status = 'en proceso';
         $ticket->client_id = session('user_session')["id"];
-        $ticket->agent_id = 1;
         $ticket->save();
         // dd($request->all());
         // dd($ticket);
-        return redirect('/app/client/tickets');
+        return redirect()->route('client.tickets.create')->with('alert', 'Ticket creado correctamente');
     }
 
     /**
