@@ -10,6 +10,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     // relacion con tickets
     public function ticket()
     {

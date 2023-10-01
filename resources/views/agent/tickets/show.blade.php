@@ -1,3 +1,6 @@
+@php
+    $user_session = session('user_session');
+@endphp
 @extends('layouts.agentelayout')
 @section('content')
     <div class="flex p-4 flex-col gap-2">
@@ -56,13 +59,16 @@
                     <img src="{{ asset('assets/admin/img/agent.png') }}" alt="" class="w-8 h-8 object-cover">
                 </figure>
                 <div class="flex items-center">
-                    <p class="text-sm text-blue-950">De: <span class="font-bold "> SENATI </span>(senati@support@.com)</p>
+                    <p class="text-sm text-blue-950">De: <span class="font-bold "> {{ $user_session['first_name'] }} {{ $user_session['first_surname'] }}  </span>({{ $user_session['email'] }})</p>
                 </div>
             </div>
-            <div class="flex flex-col gap-2 items-end">
-                <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Escribe aqui tu respuesta"></textarea>
-                <button class="bg-blue-900 text-white font-bold px-5 py-2 rounded hover:bg-blue-950">Enviar</button>
-            </div>
+            <form class="flex flex-col gap-2 items-end" action="{{ route('agent.comments.store',$ticket) }}" method="POST">
+                @csrf
+                <input type="hidden" name="type" value="{{ session('role') }}">
+                <input type="hidden" name="commentable_id" value="{{ $user_session['id'] }}">
+                <textarea name="body" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Escribe aqui tu respuesta"></textarea>
+                <button type="submit" class="bg-blue-900 text-white font-bold px-5 py-2 rounded hover:bg-blue-950">Enviar</button>
+            </form>
         </article>
     </div>
 @endsection
