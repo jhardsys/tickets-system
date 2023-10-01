@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Agent\AgentCommentController;
 use App\Http\Controllers\Agent\AgentProfileController;
 use App\Http\Controllers\Agent\AgentTicketController;
 use Illuminate\Support\Facades\Route;
@@ -18,3 +19,5 @@ use Illuminate\Support\Facades\Route;
 Route::resource('tickets', AgentTicketController::class);
 
 Route::resource('/perfil', AgentProfileController::class);
+
+Route::post('/comments/{ticket}', [AgentCommentController::class,'store'])->name('comments.store');
