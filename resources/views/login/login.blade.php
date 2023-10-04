@@ -47,7 +47,8 @@
             </div> --}}
 
             <input class="login__button" type="submit" value="Iniciar sesion" />
-            <a class="login__olvido" href="#">¿Olvidó su contraseña?</a>
+            {{-- TODO: FUNCIÓN RECUPERAR CONTRASEÑA --}}
+            {{-- <a class="login__olvido" href="#">¿Olvidó su contraseña?</a> --}}
 
         </div>
     </form>
