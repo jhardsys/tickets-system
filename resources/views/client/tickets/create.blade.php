@@ -36,6 +36,18 @@
                 </div>
             </div>
 
+            <div class="login__campo">
+                <label class="login__label" for="evidencia">
+                    <span class="login__span">Evidencia:</span>
+                    <input type="file" multiple>
+                </label>
+                <div>
+                    @error('evidencia')
+                        <span style="color: red" class="login__error">{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+
             <input class="login__button" type="submit" value="Enviar" />
 
         </div>
