@@ -22,6 +22,7 @@ class CommentFactory extends Factory
             'body' => $this->faker->paragraph(),
             'commentable_id' => $this->faker->numberBetween(1, 10),
             'commentable_type' => $this->faker->randomElement(['App\Models\Agent', 'App\Models\Client']),
+            'files_url' => $this->faker->imageUrl(),
         ];
     }
 }
