@@ -2,13 +2,12 @@
 @section('titulo-seccion', 'Tickets')
 @section('contenido')
     <form action="" method="get" style="margin: 0.25cm; width: 50%">
-        <label for="tickets-search-term" class="login__label">
-            <input class="login__input" type="search" name="tickets-search-term" id="tickets-search-term"
-                placeholder="Buscar ticket">
+        <label for="search" class="login__label">
+            <input class="login__input" type="search" name="search" id="search" value="{{ $request->search }}" placeholder="Buscar ticket">
         </label>
     </form>
     <div class="ticket__container">
-        @foreach ($tickets as $ticket)
+        @forelse ($tickets as $ticket)
             <div class="ticket">
                 <div class="ticket__body">
                     <div class="ticket__logo"><img src="{{ asset('assets/client/img/logo-ticket.png') }}" alt="">
@@ -23,6 +22,14 @@
                     <p class="ticket__estado">{{ $ticket->status }}</p>
                 </div>
             </div>
-        @endforeach
+        @empty
+            <div class="ticket">
+                <div class="ticket__body">
+                    <div class="ticket__texts">
+                        <a href="{{ route('client.tickets.index') }}" class="ticket__titulo">No hay tickets</a>
+                    </div>
+                </div>
+            </div>
+        @endforelse
     </div>
 @endsection

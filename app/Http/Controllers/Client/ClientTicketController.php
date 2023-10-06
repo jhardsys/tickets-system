@@ -11,12 +11,16 @@ class ClientTicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         // dd(session('user_session')["id"]);
         $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->get();
 
-        return view('client.tickets.index', compact('tickets'));
+        if ($request->has('search')) {
+            $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->where('subject', 'like', '%' . $request->search . '%')->get();
+        }
+
+        return view('client.tickets.index', compact('tickets', 'request'));
     }
 
     /**
