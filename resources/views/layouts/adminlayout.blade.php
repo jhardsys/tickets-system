@@ -45,16 +45,16 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="{{ url('app/admin/clients')}}">
                         <i class='bx bx-book-alt'></i>
                         <span class="link_name">Clientes</span>
                     </a>
                     <i class="bx bx-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#" class="link_name">Clientes</a></li>
-                    <li><a href="#">Crear cliente</a></li>
-                    <li><a href="#">Actualizar cliente</a></li>
+                    <li><a href="" class="link_name">Clientes</a></li>
+                    <li><a href="{{ url('app/admin/clients/create') }}">Crear cliente</a></li>
+                    <li><a href="{{ url('app/admin/clients/update') }}">Actualizar cliente</a></li>
                 </ul>
             </li>
             <li>
