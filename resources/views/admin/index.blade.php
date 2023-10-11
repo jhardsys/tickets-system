@@ -30,7 +30,8 @@
                                 @change="cambiarAgente($el)">
                                 @foreach ($agents as $agent)
                                     <option value="{{ $agent->id }}"
-                                        {{ $ticket->agent->id === $agent->id ? 'selected' : '' }}>{{ $agent->first_name }}
+                                        {{ $ticket->agent_id != null && $ticket->agent->id === $agent->id ? 'selected' : '' }}>
+                                        {{ $agent->first_name }}
                                     </option>
                                 @endforeach
                             </select>
@@ -39,7 +40,7 @@
                             x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
                             <x-ticket-priority :ticket="$ticket" />
                         </td>
-                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                        {{-- <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
                             x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
                             <div class="flex gap-1 items-center">
                                 <select data-id="{{ $ticket->id }}" name="status" id="status"
@@ -51,7 +52,10 @@
                                     <option value="cancelado">Cancelado</option>
                                 </select>
                             </div>
-
+                        </td> --}}
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            {{ $ticket->status }}
                         </td>
                     </tr>
                 @empty
@@ -82,6 +86,7 @@
         function cambiarAgente(selectElement) {
             const nuevoAgente = selectElement.value;
             const ticketId = selectElement.dataset.ticketId;
+            const nuevoStatus = 'asignado'
 
             // Enviar la nueva prioridad al servidor a través de una petición AJAX
             fetch(`/app/admin/tickets/${ticketId}`, {
@@ -92,7 +97,8 @@
                 },
                 body: JSON.stringify({
                     nuevoAgente,
-                    ticketId
+                    ticketId,
+                    nuevoStatus
                 })
             })
 
