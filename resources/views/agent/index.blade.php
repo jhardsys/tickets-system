@@ -47,9 +47,11 @@
                             <div class="flex gap-1 items-center">
                                 <select data-id="{{ $ticket->id }}" name="status" id="status"
                                     onchange="actualizarStatus(this)" x-model="status">
-                                    <option value="derivación al area especializada">derivación al area especializada</option>
+                                    <option value="abierto">Abierto</option>
+                                    <option value="asignado">Asignado</option>
                                     <option value="en proceso">En proceso</option>
                                     <option value="resuelto">Resuelto</option>
+                                    <option value="cancelado">Cancelado</option>
                                 </select>
                             </div>
 
