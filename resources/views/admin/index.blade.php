@@ -13,18 +13,46 @@
             </thead>
             <tbody class="divide-y divide-gray-100 ">
                 @forelse ($tickets as $ticket)
-                    <tr class="odd:bg-white even:bg-slate-100">
-                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">{{ $ticket->client->first_name }}
+                    <tr class="bg-white" x-data="{ status: '{{ $ticket->status }}' }">
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            {{ $ticket->client->first_name }}
                             {{ $ticket->client->first_surname }}</td>
-                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
                             <a href="{{ route('admin.tickets.show', $ticket) }}"
                                 class="hover:text-blue-500 hover:underline transition ease-in-out">{{ $ticket->subject }}
                             </a>
                         </td>
-                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">{{ $ticket->agent->first_name }}
-                            {{ $ticket->agent->first_surname }}</td>
-                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">{{ $ticket->priority }} </td>
-                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">{{ $ticket->status }} </td>
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            <select data-ticket-id="{{ $ticket->id }}" name="agente" id="agente"
+                                @change="cambiarAgente($el)">
+                                @foreach ($agents as $agent)
+                                    <option value="{{ $agent->id }}"
+                                        {{ $ticket->agent->id === $agent->id ? 'selected' : '' }}>{{ $agent->first_name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </td>
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            <x-ticket-priority :ticket="$ticket" />
+                        </td>
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            <div class="flex gap-1 items-center">
+                                <select data-id="{{ $ticket->id }}" name="status" id="status"
+                                    onchange="actualizarStatus(this)" x-model="status">
+                                    <option value="abierto">Abierto</option>
+                                    <option value="asignado">Asignado</option>
+                                    <option value="en proceso">En proceso</option>
+                                    <option value="resuelto">Resuelto</option>
+                                    <option value="cancelado">Cancelado</option>
+                                </select>
+                            </div>
+
+                        </td>
                     </tr>
                 @empty
                     <tr>No hay tickets</tr>
@@ -50,5 +78,69 @@
                 }
             }
         });
+
+        function cambiarAgente(selectElement) {
+            const nuevoAgente = selectElement.value;
+            const ticketId = selectElement.dataset.ticketId;
+
+            // Enviar la nueva prioridad al servidor a través de una petición AJAX
+            fetch(`/app/admin/tickets/${ticketId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Agrega el token CSRF
+                },
+                body: JSON.stringify({
+                    nuevoAgente,
+                    ticketId
+                })
+            })
+
+        }
+
+        function actualizarPrioridad(selectElement) {
+
+            const nuevaPrioridad = selectElement.value;
+            const ticketId = selectElement.dataset.id;
+
+            // Enviar la nueva prioridad al servidor a través de una petición AJAX
+            fetch(`/app/admin/tickets/${ticketId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Agrega el token CSRF
+                    },
+                    body: JSON.stringify({
+                        nuevaPrioridad,
+                        ticketId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {})
+            // .catch(error => console.error('Error:', error));
+        }
+
+        function actualizarStatus(selectElement) {
+
+            const nuevoStatus = selectElement.value;
+            const ticketId = selectElement.dataset.id;
+
+            fetch(`/app/admin/tickets/${ticketId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}' // Agrega el token CSRF
+                    },
+                    body: JSON.stringify({
+                        nuevoStatus,
+                        ticketId
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // console.log(data)
+                })
+            // .catch(error => console.error('Error:', error));
+        }
     </script>
 @endpush
