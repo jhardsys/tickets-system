@@ -35,7 +35,7 @@
                          >
                             <select data-ticket-id="{{ $ticket->id }}" name="agente" id="agente" @change="cambiarAgente($el)">
                                 @foreach ($agents as $agent)
-                                    <option value="{{ $agent->id }}" {{ $ticket->agent->id === $agent->id ? 'selected' : '' }}>{{ $agent->first_name }}</option>
+                                    <option value="{{ $agent->id }}" {{ $ticket->agent_id != null && $ticket->agent->id === $agent->id ? 'selected' : '' }}>{{ $agent->first_name }}</option>
                                 @endforeach
                             </select>
                         </td>
