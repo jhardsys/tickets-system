@@ -40,7 +40,11 @@ class AgentClientesController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $cliente = Client::find($id);
+
+        return response()->json([
+            "data" => $cliente
+        ]);
     }
 
     /**
@@ -48,7 +52,7 @@ class AgentClientesController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
@@ -56,7 +60,14 @@ class AgentClientesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $cliente = Client::find($id);
+
+        $cliente->update($request->all());
+
+        return response()->json([
+            "data" => $request->all()
+        ]);
     }
 
     /**
