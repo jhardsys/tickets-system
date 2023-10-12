@@ -5,6 +5,8 @@
     font-family: "Poppins", sans-serif;
 }
 
+[x-cloak] { display: none !important; }
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -12,7 +14,7 @@
     height: 100%;
     width: 260px;
     background-color: #11101d;
-    z-index: 100;
+    z-index: 20;
     transition: all 300ms ease;
 }
 

@@ -31,4 +31,8 @@ class Client extends Model
     {
         return $this->morphOne(User::class, 'userable');
     }
+
+    public function fullname(){
+        return $this->first_name.' '. $this->first_surname;
+    }
 }
