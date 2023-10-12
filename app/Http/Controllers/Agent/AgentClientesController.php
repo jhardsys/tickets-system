@@ -64,6 +64,11 @@ class AgentClientesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $registro = Client::findOrFail($id);
+        $registro->delete();
+
+        return response()->json([
+            "data" => "Registro eliminado"
+        ]);
     }
 }

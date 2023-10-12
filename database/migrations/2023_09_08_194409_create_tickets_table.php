@@ -19,7 +19,7 @@ return new class extends Migration
             $table->enum('status', ['abierto', 'asignado', 'en proceso', 'resuelto', 'cancelado'])
                 ->default('abierto');
             $table->text('solution')->nullable();
-            $table->foreignId('client_id')->constrained();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
             $table->foreignId('agent_id')->nullable()->constrained();
             $table->timestamps();
         });
