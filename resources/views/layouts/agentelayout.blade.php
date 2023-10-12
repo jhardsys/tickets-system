@@ -18,10 +18,11 @@
     {{-- Alpine js --}}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
+
     <title>Box icons</title>
 </head>
 
-<body>
+<body x-data="{ modal: false }">
     <div class="sidebar">
         <a class="logo-details" href="{{ route('agent.tickets.index') }}">
             <i class="bx bxl-c-plus-plus"></i>
@@ -48,8 +49,8 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
-                        <i class='bx bx-book-alt'></i>
+                    <a href="{{ route('agent.clientes.index') }}">
+                        <i class='bx bx-user-pin'></i>
                         <span class="link_name">Clientes</span>
                     </a>
                     <i class="bx bx-chevron-down arrow"></i>
