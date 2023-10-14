@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Agent\AgentClientesAjaxController;
 use App\Http\Controllers\Agent\AgentClientesController;
 use App\Http\Controllers\Agent\AgentCommentController;
 use App\Http\Controllers\Agent\AgentProfileController;
@@ -22,5 +23,6 @@ Route::resource('tickets', AgentTicketController::class);
 Route::resource('/perfil', AgentProfileController::class);
 
 Route::resource('/clientes', AgentClientesController::class);
+Route::resource('clientes/ajax', AgentClientesAjaxController::class);
 
 Route::post('/comments/{ticket}', [AgentCommentController::class,'store'])->name('comments.store');
