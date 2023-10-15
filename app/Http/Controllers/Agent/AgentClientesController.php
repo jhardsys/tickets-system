@@ -43,7 +43,8 @@ class AgentClientesController extends Controller
     {
         $cliente = Client::find($id);
 
-        return view('agent.clientes.show',$cliente);
+
+        return view('agent.clientes.show',compact('cliente'));
     }
 
     /**

@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de tickets</title>
+
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,10 +17,6 @@
     {{-- Tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
-
-
-
-    <title>Box icons</title>
 </head>
 
 <body x-data="{ modal: false }">
