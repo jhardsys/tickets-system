@@ -31,4 +31,8 @@ class Agent extends Model
       'second_surname',
       'phone',
     ];
+
+    public function fullname(){
+        return $this->first_name.' '. $this->first_surname;
+    }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Agent;
 
-use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class AgentClientesController extends Controller
 {
@@ -42,9 +43,8 @@ class AgentClientesController extends Controller
     {
         $cliente = Client::find($id);
 
-        return response()->json([
-            "data" => $cliente
-        ]);
+
+        return view('agent.clientes.show',compact('cliente'));
     }
 
     /**
@@ -63,10 +63,22 @@ class AgentClientesController extends Controller
 
         $cliente = Client::find($id);
 
-        $cliente->update($request->all());
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required|min:3|alpha',
+            'first_surname' => 'required|min:3',
+            'phone' => 'required|min:9|unique:clients,phone,' . $cliente->id
+        ]);
+
+        $errors = [];
+        if ($validator->fails()) {
+            $errors = $validator->errors();
+        } else {
+            $cliente->update($request->all());
+        }
 
         return response()->json([
-            "data" => $request->all()
+            "data" => $request->all(),
+            "errors" => $errors
         ]);
     }
 
