@@ -14,14 +14,18 @@ class ClientTicketController extends Controller
      */
     public function index(Request $request)
     {
+        setlocale(LC_TIME, 'es_ES.UTF-8');
         // dd(session('user_session')["id"]);
         $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->get();
 
         if ($request->has('search')) {
             $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->where('subject', 'like', '%' . $request->search . '%')->get();
         }
+        // dd($tickets->first()->created_at);
+        $fecha =  $tickets->first()->created_at;
+        $formattedDate = date_format($fecha, 'D, d M, Y H:i A');
 
-        return view('client.tickets.index', compact('tickets', 'request'));
+        return view('client.tickets.index', compact('tickets', 'request', 'formattedDate'));
     }
 
     /**
@@ -42,14 +46,16 @@ class ClientTicketController extends Controller
             'asunto' => 'required',
             'descripcion' => 'required',
         ]);
-        // dd(session('user_session'));
+        // $user = session('user_session');
+        // dd($user["id"]);
         $ticket = new Ticket;
         $ticket->subject = $request->asunto;
-        $ticket->priority = 'alta';
-        $ticket->status = 'en proceso';
-        $ticket->client_id = session('user_session')->id;
+        $ticket->priority = 'baja';
+        $ticket->status = 'abierto';
+        $ticket->client_id = session('user_session')["id"];
         $ticket->agent_id = 1;
         $ticket->save();
+
         $comment = new Comment;
         $comment->ticket_id = $ticket->id;
         $comment->body = $request->descripcion;
@@ -57,7 +63,7 @@ class ClientTicketController extends Controller
         //Consultar commentable_id
         $comment->commentable_id = '1';
         $comment->save();
-        return redirect('/app/client/tickets');
+        return redirect()->route('client.tickets.create')->with('alert', 'Ticket creado correctamente');
     }
 
     /**
@@ -67,11 +73,18 @@ class ClientTicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $comments = Comment::select('*')->where('ticket_id', $id)->get();
-        $name = session('user_session')->first_name;
-        $apellido_pa = session('user_session')->first_surname;
-        $apellido_ma = session('user_session')->second_surname;
+        $name = session('user_session')["first_name"];
+        $apellido_pa = session('user_session')["first_surname"];
+        $apellido_ma = session('user_session')["second_surname"];
 
-        return view('client.tickets.show', compact('ticket', 'comments', 'name', 'apellido_pa', 'apellido_ma'));
+        $fecha =  $ticket->first()->created_at;
+        $formattedDate = date_format($fecha, 'D, d M, Y H:i A');
+
+        $description = $comments[0];
+        // $body =
+        // dd($comments[0]);
+
+        return view('client.tickets.show', compact('ticket', 'comments', 'name', 'apellido_pa', 'apellido_ma', 'formattedDate', 'description'));
     }
 
     /**
