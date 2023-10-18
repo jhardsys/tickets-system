@@ -34,7 +34,7 @@
   </head>
   <body>
     <header class="profile__layout">
-          <h4>Perfil de {{ $usuario->get('user')->first_name }}  {{ $usuario->get('user')->first_surname }}</h4>
+          <h4>Perfil de {{ $data['first_name']}} {{ $data['first_surname']}}</h4>
     </header>
     <main >
       @yield('content')

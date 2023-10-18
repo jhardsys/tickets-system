@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminTicketController;
+use App\Http\Controllers\Admin\AdminClientsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,4 @@ use Illuminate\Support\Facades\Route;
 Route::resource('/tickets', AdminTicketController::class);
 
 Route::resource('/perfil', AdminProfileController::class);
+Route::resource('/clients', AdminClientsController::class);

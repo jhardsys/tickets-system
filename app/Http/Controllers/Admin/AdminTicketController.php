@@ -2,17 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Ticket;
+use App\Models\Agent;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminTicketController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        return view('admin.index');
+        $tickets = Ticket::all();
+        $agents = Agent::all();
+        return view('admin.index',[
+            'tickets' => $tickets,
+            'agents' => $agents
+        ]);
     }
 
     /**
@@ -34,9 +41,11 @@ class AdminTicketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Ticket $ticket)
     {
-        //
+        return view('admin.tickets.show',[
+            'ticket' => $ticket
+        ]);
     }
 
     /**
@@ -52,7 +61,17 @@ class AdminTicketController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $ticket = Ticket::find($id);
+
+        //Obtner la prioridad desde js
+        $nuevaPrioridad = $request->input('nuevaPrioridad') ?? $ticket->priority;
+        $nuevoStatus = $request->input('nuevoStatus') ?? $ticket->status;
+        $nuevoAgente = $request->input('nuevoAgente') ?? $ticket->agent_id;
+
+        $ticket->priority = $nuevaPrioridad;
+        $ticket->status = $nuevoStatus;
+        $ticket->agent_id = $nuevoAgente;
+        $ticket->save();
     }
 
     /**

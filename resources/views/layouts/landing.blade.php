@@ -24,8 +24,8 @@
 
         <nav class="header__nav">
             <ul class="header__ul">
-                <li class="header__li"><a class="header__link" href="#">Inicio</a></li>
-                <li class="header__li"><a class="header__link" href="#">Iniciar sesion</a></li>
+                {{-- <li class="header__li"><a class="header__link" href="#">Inicio</a></li>
+                <li class="header__li"><a class="header__link" href="#">Iniciar sesion</a></li> --}}
             </ul>
         </nav>
     </header>

@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="login__campo">
+            {{-- <div class="login__campo">
                 <label class="login__label" for="role">
                     <span class="login__span">Rol:</span>
                     <select name="role" id="role" class="login__input">
@@ -44,10 +44,11 @@
                         <span style="color: red" class="login__error">{{ $message }}</span>
                     @enderror
                 </div>
-            </div>
+            </div> --}}
 
             <input class="login__button" type="submit" value="Iniciar sesion" />
-            <a class="login__olvido" href="#">¿Olvidó su contraseña?</a>
+            {{-- TODO: FUNCIÓN RECUPERAR CONTRASEÑA --}}
+            {{-- <a class="login__olvido" href="#">¿Olvidó su contraseña?</a> --}}
 
         </div>
     </form>

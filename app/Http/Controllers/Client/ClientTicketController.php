@@ -12,11 +12,16 @@ class ClientTicketController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::select('*')->where('client_id', session('user_session')->id)->get();
+        // dd(session('user_session')["id"]);
+        $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->get();
 
-        return view('client.tickets.index', compact('tickets'));
+        if ($request->has('search')) {
+            $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->where('subject', 'like', '%' . $request->search . '%')->get();
+        }
+
+        return view('client.tickets.index', compact('tickets', 'request'));
     }
 
     /**
@@ -32,6 +37,11 @@ class ClientTicketController extends Controller
      */
     public function store(Request $request)
     {
+        // validacion de datos enviados por el formulario
+        $request->validate([
+            'asunto' => 'required',
+            'descripcion' => 'required',
+        ]);
         // dd(session('user_session'));
         $ticket = new Ticket;
         $ticket->subject = $request->asunto;
@@ -48,7 +58,6 @@ class ClientTicketController extends Controller
         $comment->commentable_id = '1';
         $comment->save();
         return redirect('/app/client/tickets');
-
     }
 
     /**
@@ -58,14 +67,11 @@ class ClientTicketController extends Controller
     {
         $ticket = Ticket::findOrFail($id);
         $comments = Comment::select('*')->where('ticket_id', $id)->get();
-        $name=session('user_session')->first_name;
-        $apellido_pa=session('user_session')->first_surname;
-        $apellido_ma=session('user_session')->second_surname;
+        $name = session('user_session')->first_name;
+        $apellido_pa = session('user_session')->first_surname;
+        $apellido_ma = session('user_session')->second_surname;
 
-        return view('client.tickets.show', compact('ticket', 'comments', 'name', 'apellido_pa','apellido_ma'));
-
-
-
+        return view('client.tickets.show', compact('ticket', 'comments', 'name', 'apellido_pa', 'apellido_ma'));
     }
 
     /**

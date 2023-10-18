@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\Administrator;
 use App\Models\Agent;
 use App\Models\Client;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,20 +19,7 @@ class LoginController extends Controller
      */
     public function index()
     {
-        // TODO: INICIAR SESION VISTTA
-        $roles = [
-            1 => 'Administrador',
-            2 => 'Agente',
-            3 => 'Cliente'
-        ];
-        return view('login.login', compact('roles'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
+        return view('login.login');
     }
 
     /**
@@ -39,75 +27,42 @@ class LoginController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        // LOGIN FUNCION
-        $roles = [
-            1 => 'Administrador',
-            2 => 'Agente',
-            3 => 'Cliente'
-        ];
 
-        // COMPROBAR SI USUARIO EXISTE SEGUN ROL
-        $user = null;
-        if ($request->role == $roles[1]) {
-            $user = Administrator::where('email', $request->correo)->first();
-        } elseif ($request->role == $roles[2]) {
-            $user = Agent::where('email', $request->correo)->first();
-        } else {
-            $user = Client::where('email', $request->correo)->first();
-        }
-
-        // COMPROBAR SI USUARIO EXTRAIDO EXISTE
-        if (!$user) {
-            return redirect()->route('login.index')->withInput([
-                'correo' => $request->correo,
-                'password' => $request->password,
-                'role' => $request->role
-            ])->withErrors(['correo' => 'Correo o rol ingresado incorrecto']);
-        }
+        $user = User::where('email', $request->correo)->first();
+        // dd($user);
 
         // COMPROBAR SI CONTRASEÑA ES CORRECTA
         if (!Hash::check($request->password, $user->password)) {
             return redirect()->route('login.index')->withInput([
                 'correo' => $request->correo,
                 'password' => $request->password,
-                'role' => $request->role
             ])->withErrors(['password' => 'Contraseña ingresada incorrecta']);
         }
 
-        // REDIRECCION SEGUN ROL
-        session(['user_session' => $user, 'role' => $request->role]);
+        // dd($user->userable->id);
 
-        if ($request->role == $roles[1]) {
-            return redirect()->route('admin.tickets.index');
-        } elseif ($request->role == $roles[2]) {
-            return redirect()->route('agent.tickets.index');
-        } else {
-            return redirect()->route('client.tickets.index');
-        }
-    }
+        $user_session_data = [
+            'id' => $user->userable->id,
+            'first_name' => $user->userable->first_name,
+            'first_surname' => $user->userable->first_surname,
+            'second_surname' => $user->userable->second_surname,
+            'phone' => $user->userable->phone,
+            'email' => $user->email,
+        ];
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        session(['user_session' => $user_session_data, 'role' => $user->userable_type]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $roles = [
+            'admin' => 'App\Models\Administrator',
+            'agent' => 'App\Models\Agent',
+            'client' => 'App\Models\Client'
+        ];
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+        return match ($user->userable_type) {
+            $roles['admin'] => redirect()->route('admin.tickets.index'),
+            $roles['agent'] => redirect()->route('agent.tickets.index'),
+            $roles['client'] => redirect()->route('client.tickets.index'),
+        };
     }
 
     /**
@@ -115,5 +70,10 @@ class LoginController extends Controller
      */
     public function destroy(string $id)
     {
+        dd('destroy');
+        // CERRAR SESION
+        session()->forget('user');
+        session()->forget('role');
+        return redirect()->route('login.index');
     }
 }

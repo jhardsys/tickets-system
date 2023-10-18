@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Login\LogoutController;
 use App\Http\Controllers\Register\RegisterController;
 
 /*
@@ -15,6 +16,7 @@ use App\Http\Controllers\Register\RegisterController;
 |
 */
 
-Route::resource('/', LoginController::class)->names('login');
+Route::resource('/', LoginController::class)->names('login')->only(['index', 'store']);
+Route::resource('/logout', LogoutController::class)->names('logout')->only(['store']);
 
 Route::resource('/register', RegisterController::class);

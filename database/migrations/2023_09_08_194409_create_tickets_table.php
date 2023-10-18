@@ -15,10 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('subject');
             $table->enum('priority', ['baja', 'media', 'alta'])->default('baja');
-            $table->enum('status', ['derivación al area especializada', 'en proceso', 'resuelto'])
-                ->default('derivación al area especializada');
-            $table->foreignId('client_id')->constrained();
-            $table->foreignId('agent_id')->constrained();
+            $table->enum('status', ['abierto', 'asignado', 'en proceso', 'resuelto', 'cancelado'])
+                ->default('abierto');
+            $table->text('solution')->nullable();
+            $table->foreignId('client_id')->constrained()->onDelete('cascade');
+            $table->foreignId('agent_id')->nullable()->constrained();
             $table->timestamps();
         });
     }

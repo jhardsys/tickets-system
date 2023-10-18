@@ -20,9 +20,7 @@ class ClientFactory extends Factory
             'first_name' => fake()->firstName(),
             'first_surname' => fake()->lastName(),
             'second_surname' => fake()->lastName(),
-            'email' => fake()->unique()->safeEmail(),
-            'password' => fake()->password(),
-            'phone' => fake()->phoneNumber(),
+            'phone' => '9' . $this->faker->randomNumber(8, true),
         ];
     }
 }
