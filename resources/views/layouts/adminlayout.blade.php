@@ -29,8 +29,6 @@
         </a>
 
         <ul class="nav-links">
-
-            </li>
             <li>
                 <div class="iocn-link">
                     <a href="{{ route('admin.tickets.index') }}">
@@ -41,14 +39,12 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a href="#" class="link_name">Ticket</a></li>
-                    <li><a href="#">Crear ticket</a></li>
-                    <li><a href="#">Listar todos los ticket</a></li>
-                    <li><a href="#">Login form</a></li>
+                    <li><a href="{{ route('admin.tickets.index') }}">Listar tickets</a></li>
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="{{ url('app/admin/clients')}}">
+                    <a href="{{ url('app/admin/clients') }}">
                         <i class='bx bx-book-alt'></i>
                         <span class="link_name">Clientes</span>
                     </a>
@@ -56,71 +52,37 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a href="" class="link_name">Clientes</a></li>
-                    <li><a href="{{ url('app/admin/clients/create') }}">Crear cliente</a></li>
-                    <li><a href="{{ url('app/admin/clients/update') }}">Actualizar cliente</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-pie-chart-alt'></i>
-                    <span class="link_name">Analytics</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">Analytics</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-line-chart'></i>
-                    <span class="link_name">Charts</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">Charts</a></li>
+                    <li><a href="{{ url('app/admin/clients/create') }}">Registrar cliente</a></li>
+                    <li><a href="{{ route('admin.clients.index') }}">Listar clientes</a></li>
+                    {{-- <li><a href="{{ url('app/admin/clients/update') }}">Actualizar cliente</a></li> --}}
                 </ul>
             </li>
             <li>
                 <div class="iocn-link">
                     <a href="#">
-                        <i class='bx bx-plug'></i>
-                        <span class="link_name">Plugins</span>
+                        <i class='bx bx-book-alt'></i>
+                        <span class="link_name">Agentes</span>
                     </a>
                     <i class="bx bx-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#" class="link_name">Plugins</a></li>
-                    <li><a href="#">UI Face</a></li>
-                    <li><a href="#">Pigments</a></li>
-                    <li><a href="#">Box icons</a></li>
+                    <li><a href="#" class="link_name">Agentes</a></li>
+                    <li><a href="#">Listar agentes</a></li>
+                    <li><a href="#">Registrar agente</a></li>
+                    {{-- <li><a href="{{ url('app/admin/clients/update') }}">Actualizar cliente</a></li> --}}
                 </ul>
             </li>
+
             <li>
-                <a href="#">
-                    <i class='bx bx-compass'></i>
-                    <span class="link_name">Explore</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">Explore</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-history'></i>
-                    <span class="link_name">History</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">History</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="{{route('admin.perfil.index')}}">
+                <a href="{{ route('admin.perfil.index') }}">
                     <i class='bx bx-user'></i>
                     <span class="link_name">Profile</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a href="{{route('admin.perfil.index')}}" class="link_name">Profile</a></li>
+                    <li><a href="{{ route('admin.perfil.index') }}" class="link_name">Profile</a></li>
                 </ul>
             </li>
-            <li>
+            {{-- <li>
                 <a href="#">
                     <i class='bx bx-cog'></i>
                     <span class="link_name">Setting</span>
@@ -128,16 +90,22 @@
                 <ul class="sub-menu blank">
                     <li><a href="#" class="link_name">Setting</a></li>
                 </ul>
-            </li>
+            </li> --}}
             <li>
                 <div class="profile-details">
-                    <div class="profile-content">
-                        <img src="{{ asset('assets/img/admin/profile-icon.avif') }}" alt="profile">
-                    </div>
-                    <div class="name-job">
-                        <div class="profile_name">Prem Shahi</div>
-                        <div class="job">Web Designer</div>
-                    </div>
+                    <a href="{{ route('admin.perfil.index') }}">
+
+                        <div class="profile-content">
+                            <img src="{{ asset('assets/img/admin/profile-icon.avif') }}" alt="profile">
+                        </div>
+                        <div class="name-job">
+                            <div class="profile_name">
+                                {{ session()->get('user_session')['first_name'] }}
+                            </div>
+                            {{-- <div class="job">Web Designer</div> --}}
+                        </div>
+                    </a>
+
                     <form action="{{ route('logout.store') }}" method="POST">
                         @csrf
                         <button type="submit" style="color: transparent; background-color:transparent; border:none">
@@ -145,6 +113,7 @@
                         </button>
                     </form>
                 </div>
+
             </li>
         </ul>
     </div>
