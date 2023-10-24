@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Mail\Tickets\AdminTicketAbierto;
+use App\Mail\Tickets\ClientTicketAbierto;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ClientTicketController extends Controller
 {
@@ -49,6 +52,10 @@ class ClientTicketController extends Controller
         $ticket->save();
         // dd($request->all());
         // dd($ticket);
+
+        Mail::to('erickramirez.dnbk@gmail.com')->send(new AdminTicketAbierto(session('user_session')["first_name"], session('user_session')["first_surname"], session('user_session')["second_surname"]));
+        Mail::to(session('user_session')["email"])->send(new ClientTicketAbierto());
+
         return redirect()->route('client.tickets.create')->with('alert', 'Ticket creado correctamente');
     }
 
