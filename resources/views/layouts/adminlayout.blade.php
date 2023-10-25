@@ -54,6 +54,7 @@
                     <li><a href="" class="link_name">Clientes</a></li>
                     <li><a href="{{ url('app/admin/clients/create') }}">Registrar cliente</a></li>
                     <li><a href="{{ route('admin.clients.index') }}">Listar clientes</a></li>
+                    <li><a href="#">Listar clientes no autorizados</a></li>
                     {{-- <li><a href="{{ url('app/admin/clients/update') }}">Actualizar cliente</a></li> --}}
                 </ul>
             </li>

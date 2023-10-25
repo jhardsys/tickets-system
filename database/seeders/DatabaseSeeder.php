@@ -49,14 +49,14 @@ class DatabaseSeeder extends Seeder
                 'userable_id' => '1'
             ]);
 
-        // User::factory()
-        //     ->recycle(Agent::factory()->create())
-        //     ->create([
-        //         'email' => '1362733@senati.com',
-        //         'password' => Hash::make('agent'),
-        //         'userable_type' => 'App\Models\Agent',
-        //         'userable_id' => '2'
-        //     ]);
+        User::factory()
+            ->recycle(Agent::factory()->create())
+            ->create([
+                'email' => 'erickramirez.dev@gmail.com',
+                'password' => Hash::make('agent'),
+                'userable_type' => 'App\Models\Agent',
+                'userable_id' => '2'
+            ]);
 
         User::factory()
             ->recycle(Client::factory()->create())
