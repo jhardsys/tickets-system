@@ -1,6 +1,6 @@
 @extends('layouts.ticketslayot')
 @section('titulo-seccion', 'Enviar un ticket')
-@section('contenido')
+@section('content')
     <form class="login" method="POST" action="{{ url('app/client/tickets') }}">
         @csrf
         {{-- @method('PUT') --}}

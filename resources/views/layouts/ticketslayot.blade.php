@@ -39,61 +39,16 @@
                 </div>
                 <ul class="sub-menu">
                     <li><a href="#" class="link_name">Ticket</a></li>
-                    <li><a href="{{ route('admin.tickets.index') }}">Listar tickets</a></li>
-                    <li><a href="{{ route('admin.tickets.index') }}">Crear nuevo ticket</a></li>
+                    <li><a href="{{ url('app/client/tickets') }}">Listar tickets</a></li>
+                    <li><a href="{{ url('app/client/tickets/create') }}">Crear nuevo ticket</a></li>
 
                 </ul>
             </li>
-            <li>
-                <div class="iocn-link">
-                    <a href="{{ url('app/admin/clients') }}">
-                        <i class='bx bx-book-alt'></i>
-                        <span class="link_name">Clientes</span>
-                    </a>
-                    <i class="bx bx-chevron-down arrow"></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a href="" class="link_name">Clientes</a></li>
-                    <li><a href="{{ url('app/admin/clients/create') }}">Registrar cliente</a></li>
-                    <li><a href="{{ route('admin.clients.index') }}">Listar clientes</a></li>
-                    <li><a href="#">Listar clientes no autorizados</a></li>
-                    {{-- <li><a href="{{ url('app/admin/clients/update') }}">Actualizar cliente</a></li> --}}
-                </ul>
-            </li>
-            <li>
-                <div class="iocn-link">
-                    <a href="#">
-                        <i class='bx bx-book-alt'></i>
-                        <span class="link_name">Agentes</span>
-                    </a>
-                    <i class="bx bx-chevron-down arrow"></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a href="#" class="link_name">Agentes</a></li>
-                    <li><a href="#">Listar agentes</a></li>
-                    <li><a href="#">Registrar agente</a></li>
-                    {{-- <li><a href="{{ url('app/admin/clients/update') }}">Actualizar cliente</a></li> --}}
-                </ul>
-            </li>
 
-            <li>
-                <a href="{{ route('admin.perfil.index') }}">
-                    <i class='bx bx-user'></i>
-                    <span class="link_name">Profile</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="{{ route('admin.perfil.index') }}" class="link_name">Profile</a></li>
-                </ul>
-            </li>
-            {{-- <li>
-                <a href="#">
-                    <i class='bx bx-cog'></i>
-                    <span class="link_name">Setting</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">Setting</a></li>
-                </ul>
-            </li> --}}
+
+
+
+
             <li>
                 <div class="profile-details">
                     <a href="{{ route('admin.perfil.index') }}">

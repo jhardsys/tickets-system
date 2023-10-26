@@ -1,6 +1,6 @@
 @extends('layouts.ticketslayot')
-@section('titulo-seccion', 'Tickets')
-@section('contenido')
+{{-- @section('titulo-seccion', 'Tickets') --}}
+{{-- @section('content')
     <form action="" method="get" style="margin: 0.25cm; width: 50%">
         <label for="search" class="login__label">
             <input class="login__input" type="search" name="search" id="search" value="{{ $request->search }}"
@@ -32,5 +32,60 @@
                 </div>
             </div>
         @endforelse
+    </div>
+@endsection --}}
+@section('content')
+    <div class="overflow-auto rounded-lg shadow" id="contenedor-tabla">
+        <table class="w-full">
+            <thead class="bg-gray-50 border-b-2 border-gray-200">
+                <tr class="text-blue-900 p-5">
+
+                    <th class="p-5 text-sm font-bold tracking-wide text-left">Asunto</th>
+                    <th class="p-5 text-sm font-bold tracking-wide text-left">Agente</th>
+
+                    <th class="p-5 text-sm font-bold tracking-wide text-left">Estado</th>
+                    <th class="p-5 text-sm font-bold tracking-wide text-left">Fecha</th>
+                    <th class="p-5 text-sm font-bold tracking-wide text-left"></th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 ">
+
+                <tr class="bg-white" x-data="{ status: '' }">
+                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
+                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                        a
+                    </td>
+                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
+                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                        b
+                    </td>
+                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                        a
+                    </td>
+                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                        a
+                    </td>
+                    {{-- <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                        <div class="flex gap-1 items-center">
+                            <select data-id="{{ $ticket->id }}" name="status" id="status"
+                                onchange="actualizarStatus(this)" x-model="status">
+                                <option value="abierto">Abierto</option>
+                                <option value="asignado">Asignado</option>
+                                <option value="en proceso">En proceso</option>
+                                <option value="resuelto">Resuelto</option>
+                                <option value="cancelado">Cancelado</option>
+                            </select>
+                        </div>
+                    </td> --}}
+                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                        a
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 @endsection
