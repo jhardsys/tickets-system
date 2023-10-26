@@ -32,6 +32,15 @@ class DatabaseSeeder extends Seeder
             ]);
 
         User::factory()
+            ->recycle(Administrator::factory()->create())
+            ->create([
+                'email' => 'erickramirez.dnbk@gmail.com',
+                'password' => Hash::make('admin'),
+                'userable_type' => 'App\Models\Administrator',
+                'userable_id' => '2'
+            ]);
+
+        User::factory()
             ->recycle(Agent::factory()->create())
             ->create([
                 'email' => 'agent@test.com',
@@ -41,12 +50,30 @@ class DatabaseSeeder extends Seeder
             ]);
 
         User::factory()
+            ->recycle(Agent::factory()->create())
+            ->create([
+                'email' => 'erickramirez.dev@gmail.com',
+                'password' => Hash::make('agent'),
+                'userable_type' => 'App\Models\Agent',
+                'userable_id' => '2'
+            ]);
+
+        User::factory()
             ->recycle(Client::factory()->create())
             ->create([
                 'email' => 'client@test.com',
                 'password' => Hash::make('client'),
                 'userable_type' => 'App\Models\Client',
                 'userable_id' => '1'
+            ]);
+
+        User::factory()
+            ->recycle(Client::factory()->create())
+            ->create([
+                'email' => 'erickramirez.dnbk@hotmail.com',
+                'password' => Hash::make('client'),
+                'userable_type' => 'App\Models\Client',
+                'userable_id' => '2'
             ]);
 
         // Administrator::factory()->create([

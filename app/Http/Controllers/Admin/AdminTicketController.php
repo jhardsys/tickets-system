@@ -6,6 +6,7 @@ use App\Models\Ticket;
 use App\Models\Agent;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class AdminTicketController extends Controller
 {
@@ -72,6 +73,9 @@ class AdminTicketController extends Controller
         $ticket->status = $nuevoStatus;
         $ticket->agent_id = $nuevoAgente;
         $ticket->save();
+
+        Mail::to($ticket->client->user->email)->send(new \App\Mail\Tickets\ClientTicketAsignado());
+        Mail::to($ticket->agent->user->email)->send(new \App\Mail\Tickets\AgentTicketAsignado());
     }
 
     /**
