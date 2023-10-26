@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('first_surname');
             $table->string('second_surname');
             $table->string('phone');
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

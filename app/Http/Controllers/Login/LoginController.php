@@ -39,6 +39,18 @@ class LoginController extends Controller
             ])->withErrors(['password' => 'Contraseña ingresada incorrecta']);
         }
 
+        $roles = [
+            'admin' => 'App\Models\Administrator',
+            'agent' => 'App\Models\Agent',
+            'client' => 'App\Models\Client'
+        ];
+
+        if ($roles['client'] == $user->userable_type && $user->userable->is_active == false) {
+            return redirect()->route('login.index')->withInput([
+                'correo' => $request->correo,
+                'password' => $request->password,
+            ])->withErrors(['password' => 'Usuario sin permisos para ingresar al sistema']);
+        }
         // dd($user->userable->id);
 
         $user_session_data = [
@@ -52,11 +64,7 @@ class LoginController extends Controller
 
         session(['user_session' => $user_session_data, 'role' => $user->userable_type]);
 
-        $roles = [
-            'admin' => 'App\Models\Administrator',
-            'agent' => 'App\Models\Agent',
-            'client' => 'App\Models\Client'
-        ];
+
 
         return match ($user->userable_type) {
             $roles['admin'] => redirect()->route('admin.tickets.index'),
