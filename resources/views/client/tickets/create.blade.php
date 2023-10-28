@@ -1,9 +1,9 @@
-@extends('layouts.ticketslayot')
+{{-- @extends('layouts.ticketslayot')
 @section('titulo-seccion', 'Enviar un ticket')
 @section('content')
     <form class="login" method="POST" action="{{ url('app/client/tickets') }}">
         @csrf
-        {{-- @method('PUT') --}}
+        
         @if (session('alert'))
             <div style="color: green">
                 {{ session('alert') }}
@@ -52,4 +52,37 @@
 
         </div>
     </form>
+@endsection --}}
+
+
+@extends('layouts.ticketslayot')
+@section('content')
+    <div>
+        <div class="container mx-auto py-8">
+            <form class="w-full max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md">
+                <h1 class="text-2xl font-bold mb-6 text-center text-gray-700">Nuevo Ticket</h1>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-xl font-bold mb-2">Asunto:</label>
+                    <input
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                        type="text" placeholder="Ingresar asunto">
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-xl font-bold mb-2">Descripción</label>
+                    <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"></textarea>
+
+                </div>
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-xl font-bold mb-2">Archivo adjunto</label>
+                    <input
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                        type="file">
+                </div>
+                <button
+                    class="w-full bg-indigo-500 text-white text-xl font-bold py-3  rounded-md hover:bg-indigo-600 transition duration-300"
+                    type="submit">Enviar</button>
+            </form>
+        </div>
+    </div>
 @endsection
