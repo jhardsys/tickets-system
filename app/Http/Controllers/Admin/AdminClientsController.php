@@ -25,13 +25,53 @@ class AdminClientsController extends Controller
         return view("admin.client.create");
      }
 
-     public function update()
+     public function update(Request $request, string $id)
      {
-        return view("admin.client.update");
+         $request->validate([
+             'first_name' => 'required',
+             'first_surname' => 'required',
+             'second_surname' => 'required',
+             'phone' => 'required',
+         ]);
+
+         $client = Client::findOrFail($id);
+         $client->update([
+            'first_name' => $request->input('first_name'),
+            'first_surname' => $request->input('first_surname'),
+            'second_surname' => $request->input('second_surname'),
+            'phone' => $request->input('phone'),
+        ]);
+         return redirect()->route('admin.clients.index')->with('success', 'Cliente actualizado exitosamente');
      }
      
-     public function show($id)
+     public function edit($id)
       {
-         // Lógica para mostrar un cliente específico
+         $client = Client::findOrFail($id);
+         // dd($client);
+
+         return view('admin.client.edit', compact('client'));
+      }
+      
+      public function store(Request $request)
+      {
+        $request->validate([
+                'first_name' => 'required',
+                'first_surname' => 'required',
+                'second_surname' => 'required',
+                'phone' => 'required',
+                'password' => 'required|confirmed',
+        ]);
+    
+        $client = new Client();
+    
+        $client->first_name = $request->first_name;
+        $client->first_surname = $request->first_surname;
+        $client->second_surname = $request->second_surname;
+        $client->phone = $request->phone;
+        // $client->password = $request->password;
+    
+        $client->save();
+    
+        return redirect()->route('admin.clients.index');
       }
 }

@@ -60,17 +60,17 @@
             </li>
             <li>
                 <div class="iocn-link">
-                    <a href="#">
+                    <a href="{{route('admin.agents.index')}}">
                         <i class='bx bx-book-alt'></i>
                         <span class="link_name">Agentes</span>
                     </a>
                     <i class="bx bx-chevron-down arrow"></i>
                 </div>
                 <ul class="sub-menu">
-                    <li><a href="#" class="link_name">Agentes</a></li>
-                    <li><a href="#">Listar agentes</a></li>
-                    <li><a href="#">Registrar agente</a></li>
-                    {{-- <li><a href="{{ url('app/admin/clients/update') }}">Actualizar cliente</a></li> --}}
+                    <li><a href="{{route('admin.agents.index')}}" class="link_name">Agentes</a></li>
+                    <li><a href="{{route('admin.agents.index')}}">Listar agentes</a></li>
+                    <li><a href="{{route('admin.agents.create')}}">Registrar agente</a></li>
+                    {{-- <li><a href="{{route('admin.agents.update')}}">Actualizar cliente</a></li> --}}
                 </ul>
             </li>
 
