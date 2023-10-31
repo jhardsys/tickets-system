@@ -24,7 +24,3 @@ Route::resource('/clients', AdminClientsController::class);
 Route::resource('/agents', AdminAgentsController::class);
 Route::get('/clients/{client}', 'Admin\AdminClientsController@edit')->name('admin.clients.edit');
 Route::get('/agents/{agents}', 'Admin\AdminAgentsController@edit')->name('admin.agents.edit');
-// Route::put('/clients/{client}', 'Admin\AdminClientsController@update')->name('admin.clients.update');
-// Route::put('/clients/{client}', [AdminClientsController::class, 'update'])->name('admin.clients.update');
-// Route::get('/clients/{client}', 'AdminClientsController@edit')->name('admin.clients.edit');
-// Route::put('/clients/{client}', 'AdminClientsController@update')->name('admin.clients.update');
