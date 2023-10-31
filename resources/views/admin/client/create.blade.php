@@ -49,17 +49,17 @@
                         >
                     </div>
                 </div>
-               
+
                 <!-- <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2" >Email:</label>
                     <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-                    type="email"    
-                    placeholder="email@email.com" 
+                    type="email"
+                    placeholder="email@email.com"
                     name="email"
                     >
                 </div> -->
-               
-                <div class="mb-4">
+
+                {{-- <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2">Contraseña</label>
                     <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
                         type="password"
@@ -72,6 +72,11 @@
                         type="password"
                         placeholder="******"
                         name="password_confirmation">
+                </div> --}}
+                <div class="mb-4">
+                    <label class="block text-gray-700 text-xl font-bold mb-2" >Correo Electrónico:</label>
+                    <input class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                    placeholder="example@email.com" name="email" type="email">
                 </div>
                 <button
                 class="w-full bg-indigo-500 text-white text-xl font-bold py-3  rounded-md hover:bg-indigo-600 transition duration-300"
