@@ -29,20 +29,29 @@ class AdminClientsController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $client = Client::findOrFail($id);
+        $user = $client->user;
+
         $request->validate([
             'first_name' => 'required',
             'first_surname' => 'required',
             'second_surname' => 'required',
             'phone' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
         ]);
 
-        $client = Client::findOrFail($id);
         $client->update([
             'first_name' => $request->input('first_name'),
             'first_surname' => $request->input('first_surname'),
             'second_surname' => $request->input('second_surname'),
             'phone' => $request->input('phone'),
         ]);
+
+
+        $user->update([
+            'email' => $request->input('email'),
+        ]);
+
         return redirect()->route('admin.clients.index')->with('success', 'Cliente actualizado exitosamente');
     }
 
