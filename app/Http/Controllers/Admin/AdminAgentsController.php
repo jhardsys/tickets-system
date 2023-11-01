@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Agent;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AdminAgentsController extends Controller
 {
     public function index()
     {
-      $agents = Agent::all(); 
+      $agents = Agent::all();
       // dd($clients);
     //   return view("admin.agent.index");
       return view("admin.agent.index",[
@@ -45,9 +47,10 @@ class AdminAgentsController extends Controller
     public function edit(string $id)
     {
         $agent = Agent::findOrFail($id);
+        $user = $agent->user;
         // dd($agent);
 
-        return view('admin.agent.edit', compact('agent'));
+        return view('admin.agent.edit', compact('agent', 'user'));
     }
 
     public function store(Request $request)
@@ -57,19 +60,35 @@ class AdminAgentsController extends Controller
             'first_surname' => 'required',
             'second_surname' => 'required',
             'phone' => 'required',
-            'password' => 'required|confirmed',
+            'email' => 'required|email|unique:users,email',
        ]);
-  
+
        $agent = new Agent();
-  
+
        $agent->first_name = $request->first_name;
        $agent->first_surname = $request->first_surname;
        $agent->second_surname = $request->second_surname;
        $agent->phone = $request->phone;
        // $client->password = $request->password;
-  
+
        $agent->save();
-  
+
+       $user = new User();
+
+       // $bytesAleatorios = random_bytes(16);
+        // $password = bin2hex($bytesAleatorios);
+
+        $password = 'password';
+
+        $user->email = $request->email;
+        $user->password = Hash::make($password);
+        $user->userable_id = $agent->id;
+        $user->userable_type = 'App\Models\Agent';
+
+        $user->save();
+
+        // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
+
        return redirect()->route('admin.agents.index');
     }
 }
