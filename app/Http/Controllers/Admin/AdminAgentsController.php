@@ -12,12 +12,12 @@ class AdminAgentsController extends Controller
 {
     public function index()
     {
-      $agents = Agent::all();
-      // dd($clients);
-    //   return view("admin.agent.index");
-      return view("admin.agent.index",[
-         'agents' => $agents,
-     ]);
+        $agents = Agent::all();
+        // dd($clients);
+        //   return view("admin.agent.index");
+        return view("admin.agent.index", [
+            'agents' => $agents,
+        ]);
     }
 
     public function create()
@@ -27,20 +27,36 @@ class AdminAgentsController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $agent = Agent::findOrFail($id);
+        $user = $agent->user;
+
         $request->validate([
             'first_name' => 'required',
             'first_surname' => 'required',
             'second_surname' => 'required',
             'phone' => 'required',
+            'email' => 'required|email|unique:users,email,' . $user->id,
         ]);
 
-        $agent = Agent::findOrFail($id);
         $agent->update([
-        'first_name' => $request->input('first_name'),
-        'first_surname' => $request->input('first_surname'),
-        'second_surname' => $request->input('second_surname'),
-        'phone' => $request->input('phone'),
-    ]);
+            'first_name' => $request->input('first_name'),
+            'first_surname' => $request->input('first_surname'),
+            'second_surname' => $request->input('second_surname'),
+            'phone' => $request->input('phone'),
+        ]);
+
+        // $bytesAleatorios = random_bytes(16);
+        // $password = bin2hex($bytesAleatorios);
+
+        $password = 'password';
+
+        $user->update([
+            'email' => $request->input('email'),
+            'password' => Hash::make($password),
+        ]);
+
+        // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
+
         return redirect()->route('admin.agents.index')->with('success', 'Agent actualizado exitosamente');
     }
 
@@ -61,21 +77,21 @@ class AdminAgentsController extends Controller
             'second_surname' => 'required',
             'phone' => 'required',
             'email' => 'required|email|unique:users,email',
-       ]);
+        ]);
 
-       $agent = new Agent();
+        $agent = new Agent();
 
-       $agent->first_name = $request->first_name;
-       $agent->first_surname = $request->first_surname;
-       $agent->second_surname = $request->second_surname;
-       $agent->phone = $request->phone;
-       // $client->password = $request->password;
+        $agent->first_name = $request->first_name;
+        $agent->first_surname = $request->first_surname;
+        $agent->second_surname = $request->second_surname;
+        $agent->phone = $request->phone;
+        // $client->password = $request->password;
 
-       $agent->save();
+        $agent->save();
 
-       $user = new User();
+        $user = new User();
 
-       // $bytesAleatorios = random_bytes(16);
+        // $bytesAleatorios = random_bytes(16);
         // $password = bin2hex($bytesAleatorios);
 
         $password = 'password';
@@ -89,6 +105,6 @@ class AdminAgentsController extends Controller
 
         // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
 
-       return redirect()->route('admin.agents.index');
+        return redirect()->route('admin.agents.index');
     }
 }

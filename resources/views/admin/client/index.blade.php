@@ -44,7 +44,7 @@
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{ $client->phone }}</td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                     <a href="mailto:{{ $client->email }}">{{ $client->email }}</a>
-                                </td>   
+                                </td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                     <a href="{{ route('admin.clients.edit', ['client' => $client->id]) }}">
                                         <button
@@ -54,7 +54,7 @@
                                             Editar
                                         </button>
                                     </a>
-                                </td>   
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

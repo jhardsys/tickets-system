@@ -12,7 +12,7 @@ class AdminClientsController extends Controller
 {
     public function index(Request $request)
     {
-        $clients = Client::all();
+        $clients = Client::where('is_active', true)->get();
         // dd($clients);
         return view("admin.client.index", [
             'clients' => $clients,
@@ -47,10 +47,17 @@ class AdminClientsController extends Controller
             'phone' => $request->input('phone'),
         ]);
 
+        // $bytesAleatorios = random_bytes(16);
+        // $password = bin2hex($bytesAleatorios);
+
+        $password = 'password';
 
         $user->update([
             'email' => $request->input('email'),
+            'password' => Hash::make($password),
         ]);
+
+        // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
 
         return redirect()->route('admin.clients.index')->with('success', 'Cliente actualizado exitosamente');
     }
