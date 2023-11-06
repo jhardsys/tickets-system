@@ -28,7 +28,7 @@ class Client extends Model
     // ];
 
     // protected $fillable = ['nombre', 'primer_apellido', 'segundo_apellido', 'phone', 'email', 'password'];
-    protected $fillable = ['first_name', 'first_surname', 'second_surname', 'phone', 'password'];
+    protected $fillable = ['first_name', 'first_surname', 'second_surname', 'phone', 'password', 'is_active'];
 
 
 

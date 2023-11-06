@@ -21,6 +21,7 @@ class ClientFactory extends Factory
             'first_surname' => fake()->lastName(),
             'second_surname' => fake()->lastName(),
             'phone' => '9' . $this->faker->randomNumber(8, true),
+            'is_active' => $this->faker->boolean(),
         ];
     }
 }

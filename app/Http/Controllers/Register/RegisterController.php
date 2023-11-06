@@ -44,6 +44,7 @@ class RegisterController extends Controller
             'first_surname' => $request->input('first_surname'),
             'second_surname' => $request->input('second_surname'),
             'phone' => $request->input('phone'),
+            'is_active' => false
         ]);
 
         // $bytesAleatorios = random_bytes(16);
@@ -54,7 +55,6 @@ class RegisterController extends Controller
             'password' => bcrypt('password'),
             'userable_type' => 'App\Models\Client',
             'userable_id' => $client->id,
-            'is_active' => false,
         ]);
 
         return redirect()->route('login.index');

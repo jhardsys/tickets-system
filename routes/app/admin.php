@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminProfileController;
 use App\Http\Controllers\Admin\AdminTicketController;
 use App\Http\Controllers\Admin\AdminClientsController;
 use App\Http\Controllers\Admin\AdminAgentsController;
+use App\Http\Controllers\Admin\InactiveClientsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,3 +25,4 @@ Route::resource('/clients', AdminClientsController::class);
 Route::resource('/agents', AdminAgentsController::class);
 Route::get('/clients/{client}', 'Admin\AdminClientsController@edit')->name('admin.clients.edit');
 Route::get('/agents/{agents}', 'Admin\AdminAgentsController@edit')->name('admin.agents.edit');
+Route::resource('/inactive-clients', InactiveClientsController::class);
