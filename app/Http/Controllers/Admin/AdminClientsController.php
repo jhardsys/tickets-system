@@ -110,4 +110,9 @@ class AdminClientsController extends Controller
 
         return redirect()->route('admin.clients.index');
     }
+
+    public function destroy(string $id)
+    {
+        //
+    }
 }
