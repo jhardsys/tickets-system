@@ -13,7 +13,7 @@ class AdminClientsController extends Controller
     public function index(Request $request)
     {
         $clients = Client::where('is_active', true)->get();
-        // dd($clients);
+
         return view("admin.client.index", [
             'clients' => $clients,
         ]);

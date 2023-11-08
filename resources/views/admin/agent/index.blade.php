@@ -43,9 +43,11 @@
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{ $agent->first_surname }}</td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{ $agent->second_surname }}</td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{ $agent->phone }}</td>
-                                <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                                    <a href="mailto:{{ $agent->email }}">{{ $agent->email }}</a>
-                                </td>   
+                                <td>
+                                    @if ($agent->user)
+                                        <a href="mailto:{{ $agent->user->email }}">{{ $agent->user->email }}</a>
+                                    @endif
+                                </td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                     <a href="{{ route('admin.agents.edit', ['agent' => $agent->id]) }}">
                                         <button
