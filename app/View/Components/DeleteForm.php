@@ -6,12 +6,17 @@ use Closure;
 use Illuminate\View\Component;
 use Illuminate\Contracts\View\View;
 
-class AppModal extends Component
+class DeleteForm extends Component
 {
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct(
+        public string $modalid,
+        public string $id,
+        public string $action,
+        public string $text
+    )
     {
         //
     }
@@ -21,6 +26,6 @@ class AppModal extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.app-modal');
+        return view('components.delete-form');
     }
 }

@@ -80,6 +80,8 @@ class InactiveClientsController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $client = Client::find($id);
+        $client->delete();
+        return redirect()->route('admin.inactive-clients.index')->with('alert', 'Cliente eliminado exitosamente');
     }
 }
