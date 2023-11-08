@@ -43,8 +43,11 @@
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{ $client->second_surname }}</td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">{{ $client->phone }}</td>
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                                    <a href="mailto:{{ $client->email }}">{{ $client->email }}</a>
+                                    @if ($client->user)
+                                        <a href="mailto:{{ $client->user->email }}">{{ $client->user->email }}</a>
+                                    @endif
                                 </td>
+                             
                                 <td class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
                                     <a href="{{ route('admin.clients.edit', ['client' => $client->id]) }}">
                                         <button

@@ -14,11 +14,10 @@ class Administrator extends Model
         return $this->morphOne(User::class, 'userable');
     }
 
-     protected $fillable = [
+    protected $fillable = [
         'first_name',
         'first_surname',
         'second_surname',
         'phone',
     ];
-
 }
