@@ -83,7 +83,9 @@
                                                     Editar
                                                 </button>
                                             </a>
-                                            {{-- TODO: HACER MODAL PARA ACTIVAR CLIENTE --}}
+                                            <x-activate-client-form modalid="activate-client-{{ $client->id }}"
+                                                id="{{ $client->id }}"
+                                                text="{{ $client->first_name }} {{ $client->first_surname }} {{ $client->second_surname }}" />
                                             <x-delete-form modalid="delete-client-{{ $client->id }}"
                                                 id="{{ $client->id }}" action='admin.inactive-clients.destroy'
                                                 text="{{ $client->first_name }} {{ $client->first_surname }} {{ $client->second_surname }}" />

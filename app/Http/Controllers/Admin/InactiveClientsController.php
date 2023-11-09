@@ -66,11 +66,14 @@ class InactiveClientsController extends Controller
         // $bytesAleatorios = random_bytes(16);
         // $password = bin2hex($bytesAleatorios);
 
-        $user = $client->user;
-        $user->password = Hash::make($password);
-        $user->save();
+        if ($client->user) {
+            $user = $client->user;
+            $user->password = Hash::make($password);
+            $user->save();
 
-        // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
+            // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
+            
+        }
 
         return redirect()->route('admin.inactive-clients.index');
     }
@@ -81,6 +84,9 @@ class InactiveClientsController extends Controller
     public function destroy(string $id)
     {
         $client = Client::find($id);
+        if ($client->user) {
+            $client->user->delete();
+        }
         $client->delete();
         return redirect()->route('admin.inactive-clients.index')->with('alert', 'Cliente eliminado exitosamente');
     }
