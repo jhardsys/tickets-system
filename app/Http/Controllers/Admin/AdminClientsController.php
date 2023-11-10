@@ -113,6 +113,13 @@ class AdminClientsController extends Controller
 
     public function destroy(string $id)
     {
-        //
+        $client = Client::findOrFail($id);
+
+        if ($client->user) {
+            $client->user->delete();
+        }
+        $client->delete();
+
+        return redirect()->route('admin.clients.index')->with('success', 'Cliente eliminado exitosamente');
     }
 }

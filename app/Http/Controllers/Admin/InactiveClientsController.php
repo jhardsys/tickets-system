@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class InactiveClientsController extends Controller
 {
@@ -57,25 +58,22 @@ class InactiveClientsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // TODO: FUNCIÓN PARA ACTIVAR CLIENTE
-        $password = 'password';
         $client = Client::find($id);
         $client->is_active = true;
         $client->save();
 
-        // $bytesAleatorios = random_bytes(16);
-        // $password = bin2hex($bytesAleatorios);
+        $bytesAleatorios = random_bytes(16);
+        $password = bin2hex($bytesAleatorios);
 
         if ($client->user) {
             $user = $client->user;
             $user->password = Hash::make($password);
             $user->save();
 
-            // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
-            
+            Mail::to($user->email)->send(new \App\Mail\Client\CuentaActivada($password));
         }
 
-        return redirect()->route('admin.inactive-clients.index');
+        return redirect()->route('admin.inactive-clients.index')->with('success', 'Cliente activado exitosamente');
     }
 
     /**
@@ -88,6 +86,6 @@ class InactiveClientsController extends Controller
             $client->user->delete();
         }
         $client->delete();
-        return redirect()->route('admin.inactive-clients.index')->with('alert', 'Cliente eliminado exitosamente');
+        return redirect()->route('admin.inactive-clients.index')->with('success', 'Cliente eliminado exitosamente');
     }
 }

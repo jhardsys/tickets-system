@@ -19,9 +19,9 @@
                     </div>
                 </div>
             </div>
-            @if (session('alert'))
+            @if (session('success'))
                 <div class="text-center" style="color: green">
-                    {{ session('alert') }}
+                    {{ session('success') }}
                 </div>
             @endif
             <div class="w-full  px-4 mx-auto ">
