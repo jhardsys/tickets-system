@@ -13,7 +13,7 @@ class AdminAgentsController extends Controller
     public function index()
     {
         $agents = Agent::all();
-        // dd($clients);
+        // dd($agents);
         //   return view("admin.agent.index");
         return view("admin.agent.index", [
             'agents' => $agents,
@@ -85,7 +85,7 @@ class AdminAgentsController extends Controller
         $agent->first_surname = $request->first_surname;
         $agent->second_surname = $request->second_surname;
         $agent->phone = $request->phone;
-        // $client->password = $request->password;
+        // $agent->password = $request->password;
 
         $agent->save();
 
@@ -106,5 +106,17 @@ class AdminAgentsController extends Controller
         // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
 
         return redirect()->route('admin.agents.index');
+    }
+
+    public function destroy(string $id)
+    {
+        $agent = Agent::findOrFail($id);
+
+        if ($agent->user) {
+            $agent->user->delete();
+        }
+        $agent->delete();
+
+        return redirect()->route('admin.agents.index')->with('success', 'Agente eliminado exitosamente');
     }
 }

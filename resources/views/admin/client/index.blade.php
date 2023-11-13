@@ -20,83 +20,68 @@
                 </div>
             </div>
             @if (session('success'))
-                <div class="text-center" style="color: green">
+                <div class="text-center mb-4" style="color: green">
                     {{ session('success') }}
                 </div>
             @endif
-            <div class="w-full  px-4 mx-auto ">
-                <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded ">
-                    <div class="container mx-auto p-4">
-                        <table class="items-center bg-transparent w-full border-collapse">
-                            <thead>
-                                <tr>
-                                    <th
-                                        class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                        ID</th>
-                                    <th
-                                        class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                        Nombre</th>
-                                    <th
-                                        class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                        Primer Apellido</th>
-                                    <th
-                                        class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                        Segundo Apellido</th>
-                                    <th
-                                        class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                        Teléfono</th>
-                                    <th
-                                        class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                        Correo</th>
-                                    <th
-                                        class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                        Editar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($clients as $client)
-                                    <tr>
-                                        <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left text-blueGray-700">
-                                            {{ $client->id }}</td>
-                                        <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                                            {{ $client->first_name }}</td>
-                                        <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                                            {{ $client->first_surname }}</td>
-                                        <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                                            {{ $client->second_surname }}</td>
-                                        <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                                            {{ $client->phone }}</td>
-                                        <td
-                                            class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4">
-                                            @if ($client->user)
-                                                <a href="mailto:{{ $client->user->email }}">{{ $client->user->email }}</a>
-                                            @endif
-                                        </td>
 
-                                        <td
-                                            class="grid border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 gap-2">
-                                            <a href="{{ route('admin.clients.edit', ['client' => $client->id]) }}">
-                                                <button type="button"
-                                                    class="border border-yellow-500 bg-yellow-500 text-white rounded-md px-4 py-2  transition duration-500 ease select-none hover:bg-yellow-600 focus:outline-none focus:shadow-outline">
-                                                    Editar
-                                                </button>
-                                            </a>
-                                            <x-delete-form modalid="delete-client-{{ $client->id }}"
-                                                id="{{ $client->id }}" action="admin.clients.destroy"
-                                                text="{{ $client->first_name }} {{ $client->first_surname }} {{ $client->second_surname }}" />
+            <div class="overflow-auto rounded-lg shadow">
+                <table class="w-full">
+                    <thead class="bg-gray-50 border-b-2 border-gray-200">
+                        <tr class="text-blue-900 p-5">
+                            <th class="p-5 text-sm font-bold tracking-wide text-left">ID</th>
+                            <th class="p-5 text-sm font-bold tracking-wide text-left">Nombre</th>
+                            <th class="p-5 text-sm font-bold tracking-wide text-left">Primer Apellido</th>
+                            <th class="p-5 text-sm font-bold tracking-wide text-left">Segundo Apellido</th>
+                            <th class="p-5 text-sm font-bold tracking-wide text-left">Teléfono</th>
+                            <th class="p-5 text-sm font-bold tracking-wide text-left">Correo</th>
+                            <th class="p-5 text-sm font-bold tracking-wide text-left"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 ">
+                        @forelse ($clients as $client)
+                            <tr class="bg-white">
+                                <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap ">
+                                    {{ $client->id }}
+                                </td>
+                                <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap ">
+                                    {{ $client->first_name }}
 
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                </td>
+                                <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
+                                    {{ $client->first_surname }}
+
+                                </td>
+                                <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
+                                    {{ $client->second_surname }}
+                                </td>
+                                <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
+                                    {{ $client->phone }}
+                                </td>
+                                <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
+                                    @if ($client->user)
+                                        {{ $client->user->email }}
+                                    @endif
+                                </td>
+                                <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap grid gap-1">
+                                    <a href="{{ route('admin.clients.edit', ['client' => $client->id]) }}">
+                                        <button type="button"
+                                            class="border border-yellow-500 bg-yellow-500 text-white rounded-md px-4 py-2  transition duration-500 ease select-none hover:bg-yellow-600 focus:outline-none focus:shadow-outline">
+                                            Editar
+                                        </button>
+                                    </a>
+                                    <x-delete-form modalid="delete-client-{{ $client->id }}" id="{{ $client->id }}"
+                                        action="admin.clients.destroy"
+                                        text="{{ $client->first_name }} {{ $client->first_surname }} {{ $client->second_surname }}" />
+
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>No hay clientes</tr>
+                        @endforelse
+
+                    </tbody>
+                </table>
             </div>
     </section>
 @endsection
