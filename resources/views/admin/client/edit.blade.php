@@ -2,10 +2,15 @@
 @section('content')
     <div class="container mx-auto py-8">
         <form class="w-full max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md "
-            action="{{ route('admin.clients.update', ['client' => $client->id]) }}" method="POST">
+            action="{{ route('admin.clients.update', $client->id) }}" method="POST">
             @csrf
             @method('PUT')
             <h1 class="text-2xl font-bold mb-6 text-center text-gray-700">Actualizar cliente</h1>
+            @if (session('success'))
+                <div class="text-center mb-4" style="color: green">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="grid grid-cols-2 gap-6">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2" for="first_name">Nombre:</label>

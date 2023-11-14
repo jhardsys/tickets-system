@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\User\NewCredentials;
 use Illuminate\Http\Request;
 use App\Models\Agent;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AdminAgentsController extends Controller
 {
@@ -29,14 +31,24 @@ class AdminAgentsController extends Controller
     {
         $agent = Agent::findOrFail($id);
         $user = $agent->user;
+        $current_email = $user->email;
 
-        $request->validate([
-            'first_name' => 'required',
-            'first_surname' => 'required',
-            'second_surname' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-        ]);
+        if ($user) {
+            $request->validate([
+                'first_name' => 'required',
+                'first_surname' => 'required',
+                'second_surname' => 'required',
+                'phone' => 'required',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+            ]);
+        } else {
+            $request->validate([
+                'first_name' => 'required',
+                'first_surname' => 'required',
+                'second_surname' => 'required',
+                'phone' => 'required',
+            ]);
+        }
 
         $agent->update([
             'first_name' => $request->input('first_name'),
@@ -45,17 +57,18 @@ class AdminAgentsController extends Controller
             'phone' => $request->input('phone'),
         ]);
 
-        // $bytesAleatorios = random_bytes(16);
-        // $password = bin2hex($bytesAleatorios);
+        if ($user) {
+            $bytesAleatorios = random_bytes(16);
+            $password = bin2hex($bytesAleatorios);
+            $user->update([
+                'email' => $request->input('email'),
+                'password' => Hash::make($password),
+            ]);
 
-        $password = 'password';
-
-        $user->update([
-            'email' => $request->input('email'),
-            'password' => Hash::make($password),
-        ]);
-
-        // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
+            if ($current_email != $request->input('email')) {
+                Mail::to($request->input('email'))->send(new NewCredentials($password));
+            }
+        }
 
         return redirect()->route('admin.agents.index')->with('success', 'Agent actualizado exitosamente');
     }
@@ -91,10 +104,9 @@ class AdminAgentsController extends Controller
 
         $user = new User();
 
-        // $bytesAleatorios = random_bytes(16);
-        // $password = bin2hex($bytesAleatorios);
+        $bytesAleatorios = random_bytes(16);
+        $password = bin2hex($bytesAleatorios);
 
-        $password = 'password';
 
         $user->email = $request->email;
         $user->password = Hash::make($password);
@@ -103,7 +115,7 @@ class AdminAgentsController extends Controller
 
         $user->save();
 
-        // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
+        Mail::to($request->input('email'))->send(new NewCredentials($password));
 
         return redirect()->route('admin.agents.index');
     }

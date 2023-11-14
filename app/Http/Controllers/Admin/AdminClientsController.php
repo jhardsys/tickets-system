@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Mail\User\NewCredentials;
 use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AdminClientsController extends Controller
 {
@@ -32,13 +34,24 @@ class AdminClientsController extends Controller
         $client = Client::findOrFail($id);
         $user = $client->user;
 
-        $request->validate([
-            'first_name' => 'required',
-            'first_surname' => 'required',
-            'second_surname' => 'required',
-            'phone' => 'required',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-        ]);
+        $current_email = $user->email;
+
+        if ($user) {
+            $request->validate([
+                'first_name' => 'required',
+                'first_surname' => 'required',
+                'second_surname' => 'required',
+                'phone' => 'required',
+                'email' => 'required|email|unique:users,email,' . $user->id,
+            ]);
+        } else {
+            $request->validate([
+                'first_name' => 'required',
+                'first_surname' => 'required',
+                'second_surname' => 'required',
+                'phone' => 'required',
+            ]);
+        }
 
         $client->update([
             'first_name' => $request->input('first_name'),
@@ -47,17 +60,19 @@ class AdminClientsController extends Controller
             'phone' => $request->input('phone'),
         ]);
 
-        // $bytesAleatorios = random_bytes(16);
-        // $password = bin2hex($bytesAleatorios);
 
-        $password = 'password';
+        if ($user) {
+            $bytesAleatorios = random_bytes(16);
+            $password = bin2hex($bytesAleatorios);
+            $user->update([
+                'email' => $request->input('email'),
+                'password' => Hash::make($password),
+            ]);
 
-        $user->update([
-            'email' => $request->input('email'),
-            'password' => Hash::make($password),
-        ]);
-
-        // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
+            if ($current_email != $request->input('email')) {
+                Mail::to($request->input('email'))->send(new NewCredentials($password));
+            }
+        }
 
         return redirect()->route('admin.clients.index')->with('success', 'Cliente actualizado exitosamente');
     }
@@ -65,10 +80,7 @@ class AdminClientsController extends Controller
     public function edit($id)
     {
         $client = Client::findOrFail($id);
-        // dd($client);
         $user = $client->user;
-
-        // dd($user->email);
 
         return view('admin.client.edit', compact('client', 'user'));
     }
@@ -89,15 +101,14 @@ class AdminClientsController extends Controller
         $client->first_surname = $request->first_surname;
         $client->second_surname = $request->second_surname;
         $client->phone = $request->phone;
+        $client->is_active = true;
 
         $client->save();
 
         $user = new User();
 
-        // $bytesAleatorios = random_bytes(16);
-        // $password = bin2hex($bytesAleatorios);
-
-        $password = 'password';
+        $bytesAleatorios = random_bytes(16);
+        $password = bin2hex($bytesAleatorios);
 
         $user->email = $request->email;
         $user->password = Hash::make($password);
@@ -106,9 +117,9 @@ class AdminClientsController extends Controller
 
         $user->save();
 
-        // TODO: HACER ENVIO DE CORREO A CLIENTE CON CREDENCIALES
+        Mail::to($request->input('email'))->send(new NewCredentials($password));
 
-        return redirect()->route('admin.clients.index');
+        return redirect()->route('admin.clients.index')->with('success', 'Cliente creado exitosamente');
     }
 
     public function destroy(string $id)
