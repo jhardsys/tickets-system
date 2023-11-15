@@ -26,3 +26,15 @@ Route::resource('/agents', AdminAgentsController::class);
 Route::get('/clients/{client}', 'Admin\AdminClientsController@edit')->name('admin.clients.edit');
 Route::get('/agents/{agents}', 'Admin\AdminAgentsController@edit')->name('admin.agents.edit');
 Route::resource('/inactive-clients', InactiveClientsController::class);
+Route::get('/mostrar', function () {
+    return view('mails.tickets.admin-ticket-abierto');
+});
+// Route::get('/mostrar', function () {
+//     return view('mails.tickets.agent-ticket-asignado');
+// });
+// Route::get('/mostrar', function () {
+//     return view('mails.tickets.client-ticket-abierto');
+// });
+// Route::get('/mostrar', function () {
+//     return view('mails.tickets.client-ticket-asignado');
+// });
