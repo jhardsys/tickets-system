@@ -7,13 +7,13 @@
                     <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                         <h3
                             class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                            Lista de Clientes</h3>
+                            Lista de Agentes</h3>
                     </div>
                     <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                        <a href="{{ url('app/admin/clients/create') }}">
+                        <a href="{{ url('app/admin/agents/create') }}">
                             <button type="button"
                                 class="border border-indigo-500 bg-indigo-500 text-white rounded-md px-4 py-2 m-2 transition duration-500 ease select-none hover:bg-indigo-600 focus:outline-none focus:shadow-outline">
-                                Agregar cliente
+                                Agregar Agente
                             </button>
                         </a>
                     </div>
@@ -24,7 +24,6 @@
                     {{ session('success') }}
                 </div>
             @endif
-
             <div class="overflow-auto rounded-lg shadow">
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
@@ -39,45 +38,45 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 ">
-                        @forelse ($clients as $client)
+                        @forelse ($agents as $agent)
                             <tr class="bg-white">
                                 <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap ">
-                                    {{ $client->id }}
+                                    {{ $agent->id }}
                                 </td>
                                 <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap ">
-                                    {{ $client->first_name }}
+                                    {{ $agent->first_name }}
 
                                 </td>
                                 <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $client->first_surname }}
+                                    {{ $agent->first_surname }}
 
                                 </td>
                                 <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $client->second_surname }}
+                                    {{ $agent->second_surname }}
                                 </td>
                                 <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
-                                    {{ $client->phone }}
+                                    {{ $agent->phone }}
                                 </td>
                                 <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap">
-                                    @if ($client->user)
-                                        {{ $client->user->email }}
+                                    @if ($agent->user)
+                                        {{ $agent->user->email }}
                                     @endif
                                 </td>
                                 <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap grid gap-1">
-                                    <a href="{{ route('admin.clients.edit', ['client' => $client->id]) }}">
+                                    <a href="{{ route('admin.agents.edit', ['agent' => $agent->id]) }}">
                                         <button type="button"
                                             class="border border-yellow-500 bg-yellow-500 text-white rounded-md px-4 py-2  transition duration-500 ease select-none hover:bg-yellow-600 focus:outline-none focus:shadow-outline">
                                             Editar
                                         </button>
                                     </a>
-                                    <x-delete-form modalid="delete-client-{{ $client->id }}" id="{{ $client->id }}"
-                                        action="admin.clients.destroy"
-                                        text="{{ $client->first_name }} {{ $client->first_surname }} {{ $client->second_surname }}" />
+                                    <x-delete-form modalid="delete-agent-{{ $agent->id }}" id="{{ $agent->id }}"
+                                        action="admin.agents.destroy"
+                                        text="{{ $agent->first_name }} {{ $agent->first_surname }} {{ $agent->second_surname }}" />
 
                                 </td>
                             </tr>
                         @empty
-                            <tr>No hay clientes</tr>
+                            <tr>No hay agentes</tr>
                         @endforelse
 
                     </tbody>

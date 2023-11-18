@@ -282,6 +282,6 @@
                 console.error('Error:', error);
             });
         }
-        
+
     </script>
 @endpush

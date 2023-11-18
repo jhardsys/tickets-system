@@ -7,7 +7,7 @@
                     <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                         <h3
                             class="px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xl uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                            Lista de Clientes</h3>
+                            Lista de Clientes Inactivos</h3>
                     </div>
                     <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
                         <a href="{{ url('app/admin/clients/create') }}">
@@ -25,7 +25,7 @@
                 </div>
             @endif
 
-            <div class="overflow-auto rounded-lg shadow">
+            <div class="overflow-auto rounded-lg shadow" >
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b-2 border-gray-200">
                         <tr class="text-blue-900 p-5">
@@ -70,6 +70,9 @@
                                             Editar
                                         </button>
                                     </a>
+                                    <x-activate-client-form modalid="activate-client-{{ $client->id }}"
+                                        id="{{ $client->id }}"
+                                        text="{{ $client->first_name }} {{ $client->first_surname }} {{ $client->second_surname }}" />
                                     <x-delete-form modalid="delete-client-{{ $client->id }}" id="{{ $client->id }}"
                                         action="admin.clients.destroy"
                                         text="{{ $client->first_name }} {{ $client->first_surname }} {{ $client->second_surname }}" />

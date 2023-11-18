@@ -19,7 +19,7 @@ return new class extends Migration
                 ->default('abierto');
             $table->text('solution')->nullable();
             $table->foreignId('client_id')->constrained()->onDelete('cascade');
-            $table->foreignId('agent_id')->nullable()->constrained();
+            $table->foreignId('agent_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

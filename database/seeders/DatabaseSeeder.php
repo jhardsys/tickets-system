@@ -67,14 +67,14 @@ class DatabaseSeeder extends Seeder
                 'userable_id' => '1'
             ]);
 
-        User::factory()
-            ->recycle(Client::factory()->create())
-            ->create([
-                'email' => 'erickramirez.dnbk@hotmail.com',
-                'password' => Hash::make('client'),
-                'userable_type' => 'App\Models\Client',
-                'userable_id' => '2'
-            ]);
+        // User::factory()
+        //     ->recycle(Client::factory()->create())
+        //     ->create([
+        //         'email' => 'erickramirez.dnbk@hotmail.com',
+        //         'password' => Hash::make('client'),
+        //         'userable_type' => 'App\Models\Client',
+        //         'userable_id' => '2'
+        //     ]);
 
         // Administrator::factory()->create([
         //     'first_name' => 'Admin',

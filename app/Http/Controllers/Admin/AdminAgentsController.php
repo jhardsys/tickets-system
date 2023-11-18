@@ -5,35 +5,32 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Mail\User\NewCredentials;
 use Illuminate\Http\Request;
-use App\Models\Client;
+use App\Models\Agent;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
-class AdminClientsController extends Controller
+class AdminAgentsController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $clients = Client::where('is_active', true)->get();
-
-        return view("admin.client.index", [
-            'clients' => $clients,
+        $agents = Agent::all();
+        // dd($agents);
+        //   return view("admin.agent.index");
+        return view("admin.agent.index", [
+            'agents' => $agents,
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        return view("admin.client.create");
+        return view("admin.agent.create");
     }
 
     public function update(Request $request, string $id)
     {
-        $client = Client::findOrFail($id);
-        $user = $client->user;
-
+        $agent = Agent::findOrFail($id);
+        $user = $agent->user;
         $current_email = $user->email;
 
         if ($user) {
@@ -53,13 +50,12 @@ class AdminClientsController extends Controller
             ]);
         }
 
-        $client->update([
+        $agent->update([
             'first_name' => $request->input('first_name'),
             'first_surname' => $request->input('first_surname'),
             'second_surname' => $request->input('second_surname'),
             'phone' => $request->input('phone'),
         ]);
-
 
         if ($user) {
             $bytesAleatorios = random_bytes(16);
@@ -74,15 +70,16 @@ class AdminClientsController extends Controller
             }
         }
 
-        return redirect()->route('admin.clients.index')->with('success', 'Cliente actualizado exitosamente');
+        return redirect()->route('admin.agents.index')->with('success', 'Agent actualizado exitosamente');
     }
 
-    public function edit($id)
+    public function edit(string $id)
     {
-        $client = Client::findOrFail($id);
-        $user = $client->user;
+        $agent = Agent::findOrFail($id);
+        $user = $agent->user;
+        // dd($agent);
 
-        return view('admin.client.edit', compact('client', 'user'));
+        return view('admin.agent.edit', compact('agent', 'user'));
     }
 
     public function store(Request $request)
@@ -95,42 +92,43 @@ class AdminClientsController extends Controller
             'email' => 'required|email|unique:users,email',
         ]);
 
-        $client = new Client();
+        $agent = new Agent();
 
-        $client->first_name = $request->first_name;
-        $client->first_surname = $request->first_surname;
-        $client->second_surname = $request->second_surname;
-        $client->phone = $request->phone;
-        $client->is_active = true;
+        $agent->first_name = $request->first_name;
+        $agent->first_surname = $request->first_surname;
+        $agent->second_surname = $request->second_surname;
+        $agent->phone = $request->phone;
+        // $agent->password = $request->password;
 
-        $client->save();
+        $agent->save();
 
         $user = new User();
 
         $bytesAleatorios = random_bytes(16);
         $password = bin2hex($bytesAleatorios);
 
+
         $user->email = $request->email;
         $user->password = Hash::make($password);
-        $user->userable_id = $client->id;
-        $user->userable_type = 'App\Models\Client';
+        $user->userable_id = $agent->id;
+        $user->userable_type = 'App\Models\Agent';
 
         $user->save();
 
         Mail::to($request->input('email'))->send(new NewCredentials($password));
 
-        return redirect()->route('admin.clients.index')->with('success', 'Cliente creado exitosamente');
+        return redirect()->route('admin.agents.index');
     }
 
     public function destroy(string $id)
     {
-        $client = Client::findOrFail($id);
+        $agent = Agent::findOrFail($id);
 
-        if ($client->user) {
-            $client->user->delete();
+        if ($agent->user) {
+            $agent->user->delete();
         }
-        $client->delete();
+        $agent->delete();
 
-        return redirect()->route('admin.clients.index')->with('success', 'Cliente eliminado exitosamente');
+        return redirect()->route('admin.agents.index')->with('success', 'Agente eliminado exitosamente');
     }
 }
