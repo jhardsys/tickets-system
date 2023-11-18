@@ -39,52 +39,57 @@
         <table class="w-full">
             <thead class="bg-gray-50 border-b-2 border-gray-200">
                 <tr class="text-blue-900 p-5">
-
                     <th class="p-5 text-sm font-bold tracking-wide text-left">Asunto</th>
                     <th class="p-5 text-sm font-bold tracking-wide text-left">Agente</th>
-
                     <th class="p-5 text-sm font-bold tracking-wide text-left">Estado</th>
                     <th class="p-5 text-sm font-bold tracking-wide text-left">Fecha</th>
-                    <th class="p-5 text-sm font-bold tracking-wide text-left"></th>
+                    <th class="p-5 text-sm font-bold tracking-wide text-left">Opciones</th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 ">
+                @forelse ($tickets as $ticket)
+                    <tr class="bg-white" x-data="{ status: '' }">
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            {{ $ticket->subject }}
+                        </td>
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            @if ($ticket->first_name == '' and $ticket->first_surname == '')
+                                Aún no asignado
+                            @else
+                                {{ $ticket->first_name }}
 
-                <tr class="bg-white" x-data="{ status: '' }">
-                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
-                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
-                        a
-                    </td>
-                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
-                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
-                        b
-                    </td>
-                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
-                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
-                        a
-                    </td>
-                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
-                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
-                        a
-                    </td>
-                    {{-- <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
-                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
-                        <div class="flex gap-1 items-center">
-                            <select data-id="{{ $ticket->id }}" name="status" id="status"
-                                onchange="actualizarStatus(this)" x-model="status">
-                                <option value="abierto">Abierto</option>
-                                <option value="asignado">Asignado</option>
-                                <option value="en proceso">En proceso</option>
-                                <option value="resuelto">Resuelto</option>
-                                <option value="cancelado">Cancelado</option>
-                            </select>
+                                {{ $ticket->first_surname }}
+                            @endif
+                        </td>
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap capitalize"
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            {{ $ticket->status }}
+                        </td>
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            {{ $ticket->created_at }}
+                        </td>
+                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
+                            x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
+                            <a href="{{ url('app/client/tickets/' . $ticket->id) }}">
+                                <button type="button"
+                                    class="border border-blue-700 bg-blue-700 text-white rounded-md px-4 py-2  transition duration-500 ease select-none hover:bg-blue-900 focus:outline-none focus:shadow-outline">
+                                    Ver
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    {{-- <div class="ticket">
+                        <div class="ticket__body">
+                            <div class="ticket__texts">
+                                <a href="{{ route('client.tickets.index') }}" class="ticket__titulo">No hay tickets</a>
+                            </div>
                         </div>
-                    </td> --}}
-                    <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
-                        x-bind:class="{ 'line-through !text-gray-400': status === 'resuelto' }">
-                        a
-                    </td>
-                </tr>
+                    </div> --}}
+                @endforelse
             </tbody>
         </table>
     </div>

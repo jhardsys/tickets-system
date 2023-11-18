@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class ClientTicketController extends Controller
@@ -17,16 +18,16 @@ class ClientTicketController extends Controller
     {
         setlocale(LC_TIME, 'es_ES.UTF-8');
         // dd(session('user_session')["id"]);
-        $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->get();
+        // $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->get();
+
+        $tickets = DB::table('tickets')->leftJoin('agents', 'tickets.agent_id', '=', 'agents.id')->select('tickets.*', 'agents.first_name', 'agents.first_surname')->where('client_id', session('user_session')["id"])->get();
 
         if ($request->has('search')) {
             $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->where('subject', 'like', '%' . $request->search . '%')->get();
         }
-        // dd($tickets->first()->created_at);
-        $fecha =  $tickets->first()->created_at;
-        $formattedDate = date_format($fecha, 'D, d M, Y H:i A');
+        // dd($tickets);
 
-        return view('client.tickets.index', compact('tickets', 'request', 'formattedDate'));
+        return view('client.tickets.index', compact('tickets', 'request'));
     }
 
     /**
@@ -51,20 +52,22 @@ class ClientTicketController extends Controller
         // dd($user["id"]);
         $ticket = new Ticket;
         $ticket->subject = $request->asunto;
+        $ticket->description = $request->descripcion;
+
         $ticket->priority = 'baja';
         $ticket->status = 'abierto';
         $ticket->client_id = session('user_session')["id"];
         $ticket->agent_id = 1;
         $ticket->save();
 
-        $comment = new Comment;
-        $comment->ticket_id = $ticket->id;
-        $comment->body = $request->descripcion;
-        $comment->commentable_type = 'App\Models\Client';
-        //Consultar commentable_id
-        $comment->commentable_id = '1';
-        $comment->save();
-        return redirect()->route('client.tickets.create')->with('alert', 'Ticket creado correctamente');
+        // $comment = new Comment;
+        // $comment->ticket_id = $ticket->id;
+        // $comment->body = $request->descripcion;
+        // $comment->commentable_type = session('role');
+        // //Consultar commentable_id
+        // $comment->commentable_id = "1";
+        // $comment->save();
+        return redirect()->route('client.tickets.index')->with('alert', 'Ticket creado correctamente');
     }
 
     /**
@@ -81,11 +84,12 @@ class ClientTicketController extends Controller
         $fecha =  $ticket->first()->created_at;
         $formattedDate = date_format($fecha, 'D, d M, Y H:i A');
 
-        $description = $comments[0];
+        // $description = $comments[0];
         // $body =
+        // dd($ticket->comments);
         // dd($comments[0]);
-
-        return view('client.tickets.show', compact('ticket', 'comments', 'name', 'apellido_pa', 'apellido_ma', 'formattedDate', 'description'));
+        // dd($ticket, $comments, $name, $apellido_pa, $apellido_ma, $formattedDate, $description);
+        return view('client.tickets.show', compact('ticket', 'comments', 'name', 'apellido_pa', 'apellido_ma', 'formattedDate'));
     }
 
     /**

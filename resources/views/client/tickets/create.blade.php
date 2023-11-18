@@ -59,18 +59,21 @@
 @section('content')
     <div>
         <div class="container mx-auto py-8">
-            <form class="w-full max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md">
+            <form class="w-full max-w-2xl mx-auto bg-white p-8 rounded-md shadow-md"
+                action="{{ route('client.tickets.store') }}" method="POST">
+                @csrf
                 <h1 class="text-2xl font-bold mb-6 text-center text-gray-700">Nuevo Ticket</h1>
                 <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2">Asunto:</label>
                     <input
                         class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
-                        type="text" placeholder="Ingresar asunto">
+                        type="text" name="asunto" placeholder="Ingresar asunto">
                 </div>
 
                 <div class="mb-4">
                     <label class="block text-gray-700 text-xl font-bold mb-2">Descripción</label>
-                    <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"></textarea>
+                    <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                        name="descripcion" placeholder="Ingresar descripción"></textarea>
 
                 </div>
                 <div class="mb-4">

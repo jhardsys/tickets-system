@@ -1,15 +1,10 @@
 @extends('layouts.ticketslayot')
 @section('titulo-seccion', $ticket->subject)
 @section('description', 'Creado el ' . $formattedDate . ' - a través de Portal')
-@section('contenido')
-    {{-- <h1>Vista Detalles</h1> --}}
-    <div class="header_detail">
-        {{-- <div class="search_ticket">
-            <span>Buscar Ticket: </span>
-            <input type="text" name="search" id="search" placeholder="Nombre Ticket">
-        </div> --}}
-    </div>
-    <div class="ticket__container">
+@section('content')
+
+
+    {{-- <div class="ticket__container">
         <div class="container" style="width: 100%; padding: 4px">
             <div class="header_message">
                 <div class="header_datos_message">
@@ -34,7 +29,7 @@
                 </div>
             </div>
             <div style="width: 100%; display: flex; flex-direction: column; padding-left: 3.2rem">
-                {{-- Hola: --}}
+
                 <div>
                     {{ $description->body }}
                 </div>
@@ -55,7 +50,7 @@
                 <div class="container-input">
                     <input type="file" name="file-1" id="file-1" class="inputfile inputfile-1"
                         data-multiple-caption="{count} archivos seleccionados" multiple />
-                    {{-- <label for="file-1">
+                   <label for="file-1">
                         <svg xmlns="http://www.w3.org/2000/svg" class="iborrainputfile" width="20" height="17"
                             viewBox="0 0 20 17">
                             <path
@@ -63,7 +58,7 @@
                             </path>
                         </svg>
                         <span class="iborrainputfile">Seleccionar archivo</span>
-                    </label> --}}
+                    </label> 
                 </div>
                 <div style="margin-top: 1rem">
                     <button
@@ -113,64 +108,64 @@
             }
 
             /* .container-input {
-                                                                                                        text-align: center;
-                                                                                                        background: #282828;
-                                                                                                        border-top: 5px solid #c39f77;
-                                                                                                        padding: 50px 0;
-                                                                                                        border-radius: 6px;
-                                                                                                        width: 50%;
-                                                                                                        margin: 0 auto;
-                                                                                                        margin-bottom: 20px;
-                                                                                                    }
+                                                                                                            text-align: center;
+                                                                                                            background: #282828;
+                                                                                                            border-top: 5px solid #c39f77;
+                                                                                                            padding: 50px 0;
+                                                                                                            border-radius: 6px;
+                                                                                                            width: 50%;
+                                                                                                            margin: 0 auto;
+                                                                                                            margin-bottom: 20px;
+                                                                                                        }
 
-                                                                                                    .inputfile {
-                                                                                                        width: 0.1px;
-                                                                                                        height: 0.1px;
-                                                                                                        opacity: 0;
-                                                                                                        overflow: hidden;
-                                                                                                        position: absolute;
-                                                                                                        z-index: -1;
-                                                                                                    }
+                                                                                                        .inputfile {
+                                                                                                            width: 0.1px;
+                                                                                                            height: 0.1px;
+                                                                                                            opacity: 0;
+                                                                                                            overflow: hidden;
+                                                                                                            position: absolute;
+                                                                                                            z-index: -1;
+                                                                                                        }
 
-                                                                                                    .inputfile+label {
-                                                                                                        max-width: 80%;
-                                                                                                        font-size: 1.25rem;
-                                                                                                        font-weight: 700;
-                                                                                                        text-overflow: ellipsis;
-                                                                                                        white-space: nowrap;
-                                                                                                        cursor: pointer;
-                                                                                                        display: inline-block;
-                                                                                                        overflow: hidden;
-                                                                                                        padding: 0.625rem 1.25rem;
-                                                                                                    }
+                                                                                                        .inputfile+label {
+                                                                                                            max-width: 80%;
+                                                                                                            font-size: 1.25rem;
+                                                                                                            font-weight: 700;
+                                                                                                            text-overflow: ellipsis;
+                                                                                                            white-space: nowrap;
+                                                                                                            cursor: pointer;
+                                                                                                            display: inline-block;
+                                                                                                            overflow: hidden;
+                                                                                                            padding: 0.625rem 1.25rem;
+                                                                                                        }
 
-                                                                                                    .inputfile+label svg {
-                                                                                                        width: 1em;
-                                                                                                        height: 1em;
-                                                                                                        vertical-align: middle;
-                                                                                                        fill: currentColor;
-                                                                                                        margin-top: -0.25em;
-                                                                                                        margin-right: 0.25em;
-                                                                                                    }
+                                                                                                        .inputfile+label svg {
+                                                                                                            width: 1em;
+                                                                                                            height: 1em;
+                                                                                                            vertical-align: middle;
+                                                                                                            fill: currentColor;
+                                                                                                            margin-top: -0.25em;
+                                                                                                            margin-right: 0.25em;
+                                                                                                        }
 
-                                                                                                    .iborrainputfile {
-                                                                                                        font-size: 16px;
-                                                                                                        font-weight: normal;
-                                                                                                        font-family: 'Lato';
-                                                                                                    }
+                                                                                                        .iborrainputfile {
+                                                                                                            font-size: 16px;
+                                                                                                            font-weight: normal;
+                                                                                                            font-family: 'Lato';
+                                                                                                        }
 
-                                                                                                    /* style 1 */
+                                                                                                        /* style 1 */
 
             /* .inputfile-1+label {
-                                                                                color: #fff;
-                                                                                background-color: #c39f77;
-                                                                            }
+                                                                                    color: #fff;
+                                                                                    background-color: #c39f77;
+                                                                                }
 
-                                                                            .inputfile-1:focus+label,
-                                                                            .inputfile-1.has-focus+label,
-                                                                            .inputfile-1+label:hover {
-                                                                                background-color: #9f8465;
-                                                                            } */
+                                                                                .inputfile-1:focus+label,
+                                                                                .inputfile-1.has-focus+label,
+                                                                                .inputfile-1+label:hover {
+                                                                                    background-color: #9f8465;
+                                                                                } */
         </style>
     </div>
     <script>
@@ -181,5 +176,111 @@
             this.style.height = 'auto'; // Resetea la altura
             this.style.height = this.scrollHeight + 'px'; // Ajusta la altura
         });
-    </script>
+    </script> --}}
+
+    <div class="flex p-4 flex-col gap-2">
+        <article class="bg-white p-5 flex flex-col gap-4">
+            <div class="flex gap-4">
+                <figure class="w-10 flex justify-center shrink-0">
+                    {{-- <img src="{{ asset('assets/admin/img/phone.svg') }}" alt=""> --}}
+                </figure>
+                <p class="font-bold tracking-wide ">{{ $ticket->subject }}</p>
+            </div>
+            <div class="flex gap-4">
+                <figure class="w-10 flex justify-center items-center hrink-0">
+                    <img src="{{ asset('assets/admin/img/user.png') }}" alt="" class="w-8 h-8 object-cover">
+                </figure>
+                <div>
+                    <p class="text-blue-400">{{ $ticket->client->first_name }} {{ $ticket->client->first_surname }}</p>
+                    <p class="italic text-sm text-gray-500">{{ $ticket->created_at->diffForHumans() }}</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <figure class="w-10 py-1 flex justify-center shrink-0">
+                    <img src="{{ asset('assets/client/img/logo-ticket.png') }}" alt="" class="w-4 h-4">
+                </figure>
+                <p class="text-blue-950 text-sm">{{ $ticket->description }} a</p>
+            </div>
+        </article>
+
+        @forelse ($ticket->comments as $comment)
+            @if (strpos($comment->commentable_type, 'Client') !== false)
+                <article class="bg-gray-100 p-5 flex flex-col gap-4">
+                    <div class="flex gap-4">
+                        <figure class="w-10 flex justify-center items-center hrink-0">
+                            <img src="{{ asset('assets/admin/img/user.png') }}" alt="" class="w-8 h-8 object-cover">
+                        </figure>
+                        <div>
+                            <span class="text-blue-400">{{ $comment->commentable->first_name }}
+                                {{ $comment->commentable->first_surname }}</span><span class="text-gray-500">
+                                respondio</span>
+                            <p class="italic text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 ">
+                        <figure class="w-10 flex py-1 justify-center shrink-0 ">
+                            <img src="{{ asset('assets/admin/img/email.svg') }}" alt="" class="w-4 h-4">
+                        </figure>
+                        <div class="flex flex-col gap-2">
+                            <p class="font-bold text-sm text-blue-950">Para: {{ $comment->ticket->agent->first_name }}
+                                {{ $comment->ticket->agent->first_surname }}</p>
+                            <p class="text-blue-950 text-sm">
+                                {{ $comment->body }}
+                            </p>
+
+                        </div>
+                    </div>
+                </article>
+            @else
+                <article class="bg-gray-100 p-5 flex flex-col gap-4">
+                    <div class="flex gap-4">
+                        <figure class="w-10 flex justify-center items-center hrink-0">
+                            <img src="{{ asset('assets/admin/img/agent.png') }}" alt=""
+                                class="w-8 h-8 object-cover">
+                        </figure>
+                        <div>
+                            <span class="text-blue-400">{{ $comment->commentable->first_name }}
+                                {{ $comment->commentable->first_surname }}</span><span class="text-gray-500">
+                                respondio</span>
+                            <p class="italic text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 ">
+                        <figure class="w-10 flex py-1 justify-center shrink-0 ">
+                            <img src="{{ asset('assets/admin/img/email.svg') }}" alt="" class="w-4 h-4">
+                        </figure>
+                        <div class="flex flex-col gap-2">
+                            <p class="font-bold text-sm text-blue-950">Para: {{ $comment->ticket->client->first_name }}
+                                {{ $comment->ticket->client->first_surname }}</p>
+                            <p class="text-blue-950 text-sm">
+                                {{ $comment->body }}
+                            </p>
+
+                        </div>
+                    </div>
+                </article>
+            @endif
+        @empty
+            <div>
+                <p class="italic text-sm text-gray-500">Sin respuesta</p>
+            </div>
+        @endforelse
+        <article class="bg-white p-5 flex flex-col gap-4">
+            <div class="flex gap-4 items-center">
+                <figure class="w-10 flex justify-center items-center hrink-0">
+                    <img src="{{ asset('assets/admin/img/user.png') }}" alt="" class="w-8 h-8 object-cover">
+                </figure>
+                <div class="flex items-center">
+                    <p class="text-sm text-blue-950">De: <span class="font-bold "> {{ $ticket->client->first_name }}
+                            {{ $ticket->client->first_surname }} </span></p>
+                </div>
+            </div>
+            <div class="flex flex-col gap-2 items-end">
+                <textarea id="message" rows="4"
+                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                    placeholder="Escribe aqui tu respuesta"></textarea>
+                <button class="bg-blue-900 text-white font-bold px-5 py-2 rounded hover:bg-blue-950">Enviar</button>
+            </div>
+        </article>
+    </div>
 @endsection
