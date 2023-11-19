@@ -31,7 +31,7 @@
         <ul class="nav-links">
             <li>
                 <div class="iocn-link">
-                    <a href="{{ route('admin.tickets.index') }}">
+                    <a href="{{ route('client.tickets.index') }}">
                         <i class="bx bx-collection"></i>
                         <span class="link_name">Ticket</span>
                     </a>
@@ -51,7 +51,7 @@
 
             <li>
                 <div class="profile-details">
-                    <a href="{{ route('admin.perfil.index') }}">
+                    <a href="{{ route('client.perfil.index') }}">
 
                         <div class="profile-content">
                             <img src="{{ asset('assets/img/admin/profile-icon.avif') }}" alt="profile">
@@ -86,6 +86,9 @@
     </main>
     @stack('script')
 </body>
+
+
+@yield('scripts')
 
 <script>
     let arrows = document.querySelectorAll(".arrow");

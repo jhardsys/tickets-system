@@ -178,7 +178,9 @@
         });
     </script> --}}
 
-    <div class="flex p-4 flex-col gap-2">
+    <div class="">
+
+
         <article class="bg-white p-5 flex flex-col gap-4">
             <div class="flex gap-4">
                 <figure class="w-10 flex justify-center shrink-0">
@@ -202,69 +204,77 @@
                 <p class="text-blue-950 text-sm">{{ $ticket->description }} a</p>
             </div>
         </article>
+        <div class="flex p-4 flex-col gap-2 overflow-y-auto h-[450px]">
+            @forelse ($ticket->comments as $comment)
+                @if (strpos($comment->commentable_type, 'Client') !== false)
+                    <article class="bg-gray-100 p-5 flex flex-col gap-4">
+                        <div class="flex gap-4">
+                            <figure class="w-10 flex justify-center items-center hrink-0">
+                                <img src="{{ asset('assets/admin/img/user.png') }}" alt=""
+                                    class="w-8 h-8 object-cover">
+                            </figure>
+                            <div>
+                                <span class="text-blue-400">{{ $comment->commentable->first_name }}
+                                    {{ $comment->commentable->first_surname }}</span><span class="text-gray-500">
+                                    respondio</span>
+                                <p class="italic text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4 ">
+                            <figure class="w-10 flex py-1 justify-center shrink-0 ">
+                                <img src="{{ asset('assets/admin/img/email.svg') }}" alt="" class="w-4 h-4">
+                            </figure>
+                            <div class="flex flex-col gap-2">
+                                @if ($comment->ticket->agent)
+                                    <p class="font-bold text-sm text-blue-950">Para:
+                                        {{ $comment->ticket->agent->first_name }}
+                                        {{ $comment->ticket->agent->first_surname }}</p>
+                                @endif
 
-        @forelse ($ticket->comments as $comment)
-            @if (strpos($comment->commentable_type, 'Client') !== false)
-                <article class="bg-gray-100 p-5 flex flex-col gap-4">
-                    <div class="flex gap-4">
-                        <figure class="w-10 flex justify-center items-center hrink-0">
-                            <img src="{{ asset('assets/admin/img/user.png') }}" alt="" class="w-8 h-8 object-cover">
-                        </figure>
-                        <div>
-                            <span class="text-blue-400">{{ $comment->commentable->first_name }}
-                                {{ $comment->commentable->first_surname }}</span><span class="text-gray-500">
-                                respondio</span>
-                            <p class="italic text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 ">
-                        <figure class="w-10 flex py-1 justify-center shrink-0 ">
-                            <img src="{{ asset('assets/admin/img/email.svg') }}" alt="" class="w-4 h-4">
-                        </figure>
-                        <div class="flex flex-col gap-2">
-                            <p class="font-bold text-sm text-blue-950">Para: {{ $comment->ticket->agent->first_name }}
-                                {{ $comment->ticket->agent->first_surname }}</p>
-                            <p class="text-blue-950 text-sm">
-                                {{ $comment->body }}
-                            </p>
+                                <p class="text-blue-950 text-sm">
+                                    {{ $comment->body }}
+                                </p>
 
+                            </div>
                         </div>
-                    </div>
-                </article>
-            @else
-                <article class="bg-gray-100 p-5 flex flex-col gap-4">
-                    <div class="flex gap-4">
-                        <figure class="w-10 flex justify-center items-center hrink-0">
-                            <img src="{{ asset('assets/admin/img/agent.png') }}" alt=""
-                                class="w-8 h-8 object-cover">
-                        </figure>
-                        <div>
-                            <span class="text-blue-400">{{ $comment->commentable->first_name }}
-                                {{ $comment->commentable->first_surname }}</span><span class="text-gray-500">
-                                respondio</span>
-                            <p class="italic text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
+                    </article>
+                @else
+                    <article class="bg-gray-100 p-5 flex flex-col gap-4">
+                        <div class="flex gap-4">
+                            <figure class="w-10 flex justify-center items-center hrink-0">
+                                <img src="{{ asset('assets/admin/img/agent.png') }}" alt=""
+                                    class="w-8 h-8 object-cover">
+                            </figure>
+                            <div>
+                                <span class="text-blue-400">{{ $comment->commentable->first_name }}
+                                    {{ $comment->commentable->first_surname }}</span><span class="text-gray-500">
+                                    respondio</span>
+                                <p class="italic text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex gap-4 ">
-                        <figure class="w-10 flex py-1 justify-center shrink-0 ">
-                            <img src="{{ asset('assets/admin/img/email.svg') }}" alt="" class="w-4 h-4">
-                        </figure>
-                        <div class="flex flex-col gap-2">
-                            <p class="font-bold text-sm text-blue-950">Para: {{ $comment->ticket->client->first_name }}
-                                {{ $comment->ticket->client->first_surname }}</p>
-                            <p class="text-blue-950 text-sm">
-                                {{ $comment->body }}
-                            </p>
+                        <div class="flex gap-4 ">
+                            <figure class="w-10 flex py-1 justify-center shrink-0 ">
+                                <img src="{{ asset('assets/admin/img/email.svg') }}" alt="" class="w-4 h-4">
+                            </figure>
+                            <div class="flex flex-col gap-2">
+                                <p class="font-bold text-sm text-blue-950">Para: {{ $comment->ticket->client->first_name }}
+                                    {{ $comment->ticket->client->first_surname }}</p>
+                                <p class="text-blue-950 text-sm">
+                                    {{ $comment->body }}
+                                </p>
 
+                            </div>
                         </div>
-                    </div>
-                </article>
-            @endif
-        @empty
-            <div>
-                <p class="italic text-sm text-gray-500">Sin respuesta</p>
-            </div>
-        @endforelse
+                    </article>
+                @endif
+            @empty
+
+                <div>
+                    <p class="italic text-sm text-gray-500">Sin respuesta</p>
+                </div>
+            @endforelse
+        </div>
+
         <article class="bg-white p-5 flex flex-col gap-4">
             <div class="flex gap-4 items-center">
                 <figure class="w-10 flex justify-center items-center hrink-0">
@@ -275,12 +285,17 @@
                             {{ $ticket->client->first_surname }} </span></p>
                 </div>
             </div>
-            <div class="flex flex-col gap-2 items-end">
-                <textarea id="message" rows="4"
-                    class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Escribe aqui tu respuesta"></textarea>
-                <button class="bg-blue-900 text-white font-bold px-5 py-2 rounded hover:bg-blue-950">Enviar</button>
-            </div>
+            <form method="POST" action="{{ url('/app/comment/store') }}">
+                @csrf
+                <input type="hidden" name="ticket" value="{{ $ticket->id }}" />
+                <div class="flex flex-col gap-2 items-end">
+                    <textarea id="message" rows="4"
+                        class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                        placeholder="Escribe aqui tu respuesta" name="comment"></textarea>
+                    <button type="submit"
+                        class="bg-blue-900 text-white font-bold px-5 py-2 rounded hover:bg-blue-950">Enviar</button>
+                </div>
+            </form>
         </article>
     </div>
 @endsection
