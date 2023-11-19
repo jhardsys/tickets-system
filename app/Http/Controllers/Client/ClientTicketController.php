@@ -23,7 +23,7 @@ class ClientTicketController extends Controller
         $tickets = DB::table('tickets')->leftJoin('agents', 'tickets.agent_id', '=', 'agents.id')->select('tickets.*', 'agents.first_name', 'agents.first_surname')->where('client_id', session('user_session')["id"])->get();
 
         if ($request->has('search')) {
-            $tickets = Ticket::select('*')->where('client_id', session('user_session')["id"])->where('subject', 'like', '%' . $request->search . '%')->get();
+            $tickets = DB::table('tickets')->leftJoin('agents', 'tickets.agent_id', '=', 'agents.id')->select('tickets.*', 'agents.first_name', 'agents.first_surname')->where('client_id', session('user_session')["id"])->where('subject', 'like', '%' . $request->search . '%')->get();
         }
         // dd($tickets);
 
