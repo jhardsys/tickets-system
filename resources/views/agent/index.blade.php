@@ -18,44 +18,26 @@
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-100 ">
+                @php
+                    $color['alta'] = "text-red-400";
+                    $color['media'] = "text-yellow-400";
+                    $color['baja'] = "text-green-400";
+                @endphp
                 @forelse ($tickets as $ticket)
-                    <tr class="bg-white" x-data="{ status: '{{ $ticket->status }}' }">
+                    <tr class="bg-white " x-data="{ status: '{{ $ticket->status }}' }">
                         <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
                             x-bind:class="{'line-through !text-gray-400': status === 'resuelto'}">
-                            {{ $ticket->client->first_name }}
-                            {{ $ticket->client->first_surname }}</td>
+                            <a href="{{ route('agent.clientes.show', $ticket->client->id) }}"
+                                class="font-mediumhover:cursor-pointer hover:text-blue-700 hover:underline">{{ $ticket->client->fullname() }}</a></td>
                          <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap "
                             x-bind:class="{'line-through !text-gray-400': status === 'resuelto'}">
                             <a href="{{ route('agent.tickets.show', $ticket) }}"
                                 class="hover:text-blue-500 hover:underline transition ease-in-out">{{ $ticket->subject }}
                             </a>
                         </td>
-                         <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
-                         x-bind:class="{'line-through !text-gray-400': status === 'resuelto'}"
-                         >
-                            <select data-ticket-id="{{ $ticket->id }}" name="agente" id="agente" @change="cambiarAgente($el)">
-                                @foreach ($agents as $agent)
-                                    <option value="{{ $agent->id }}" {{ $ticket->agent_id != null && $ticket->agent->id === $agent->id ? 'selected' : '' }}>{{ $agent->first_name }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap" x-bind:class="{'line-through !text-gray-400': status === 'resuelto'}">
-                            <x-ticket-priority :ticket="$ticket" />
-                        </td>
-                         <td class="py-5 px-3 text-sm text-gray-700 whitespace-nowrap"
-                            x-bind:class="{'line-through !text-gray-400': status === 'resuelto'}">
-                            <div class="flex gap-1 items-center">
-                                <select data-id="{{ $ticket->id }}" name="status" id="status"
-                                    onchange="actualizarStatus(this)" x-model="status">
-                                    <option value="abierto">Abierto</option>
-                                    <option value="asignado">Asignado</option>
-                                    <option value="en proceso">En proceso</option>
-                                    <option value="resuelto">Resuelto</option>
-                                    <option value="cancelado">Cancelado</option>
-                                </select>
-                            </div>
-
-                        </td>
+                         <td class="text-sm py-5 px-3 {{ $ticket->status == "resuelto" ? "!line-through !text-gray-400" : '' }}">{{ $ticket->agent->first_name }}</td>
+                         <td class="text-sm p-5 {{ $color[$ticket->priority] }} {{ $ticket->status == "resuelto" ? "!line-through !text-gray-400" : '' }}"> {{ Str::title($ticket->priority) }} </td>
+                         <td class="text-sm p-5 {{ $ticket->status == "resuelto" ? "!line-through !text-gray-400" : '' }}"> {{ Str::title($ticket->status) }} </td>
                     </tr>
                 @empty
                     <tr>

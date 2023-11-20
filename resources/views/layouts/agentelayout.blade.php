@@ -57,58 +57,7 @@
                     <li><a href="#">Crear cliente</a></li>
                     <li><a href="#">Actualizar cliente</a></li>
                 </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-pie-chart-alt'></i>
-                    <span class="link_name">Analytics</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">Analytics</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-line-chart'></i>
-                    <span class="link_name">Charts</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">Charts</a></li>
-                </ul>
-            </li>
-            <li>
-                <div class="iocn-link">
-                    <a href="#">
-                        <i class='bx bx-plug'></i>
-                        <span class="link_name">Plugins</span>
-                    </a>
-                    <i class="bx bx-chevron-down arrow"></i>
-                </div>
-                <ul class="sub-menu">
-                    <li><a href="#" class="link_name">Plugins</a></li>
-                    <li><a href="#">UI Face</a></li>
-                    <li><a href="#">Pigments</a></li>
-                    <li><a href="#">Box icons</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-compass'></i>
-                    <span class="link_name">Explore</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">Explore</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-history'></i>
-                    <span class="link_name">History</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">History</a></li>
-                </ul>
-            </li>
+            </li>                     
             <li>
                 <a href="{{route('agent.perfil.index')}}">
                     <i class='bx bx-user'></i>
@@ -117,24 +66,14 @@
                 <ul class="sub-menu blank">
                     <li><a href="{{route('agent.perfil.index')}}" class="link_name">Profile</a></li>
                 </ul>
-            </li>
-            <li>
-                <a href="#">
-                    <i class='bx bx-cog'></i>
-                    <span class="link_name">Setting</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a href="#" class="link_name">Setting</a></li>
-                </ul>
-            </li>
+            </li>            
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
                         <img src="{{ asset('assets/img/admin/profile-icon.avif') }}" alt="profile">
                     </div>
                     <div class="name-job">
-                        <div class="profile_name">Prem Shahi</div>
-                        <div class="job">Web Designer</div>
+                        <div class="profile_name">{{ session()->get('user_session')['first_name'] }}</div>
                     </div>
                     <form action="{{ route('logout.store') }}" method="POST">
                         @csrf
